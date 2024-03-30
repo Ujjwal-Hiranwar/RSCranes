@@ -32,6 +32,9 @@
             android:name=".ForgotActivity"
             android:exported="false" />
         <activity
+            android:name=".CraneInfoView"
+            android:exported="false" />
+        <activity
             android:name=".MainActivity"
             android:exported="false">
         </activity>
