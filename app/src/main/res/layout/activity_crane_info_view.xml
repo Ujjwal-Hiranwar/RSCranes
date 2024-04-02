@@ -103,7 +103,7 @@
                         android:id="@+id/cranecapacity"
                         android:layout_width="match_parent"
                         android:layout_gravity="bottom"
-                        android:layout_height="78dp"
+                        android:layout_height="79dp"
                         android:textSize="35dp"
                         android:layout_marginHorizontal="40dp"
                         />

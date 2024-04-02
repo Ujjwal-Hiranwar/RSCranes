@@ -1,0 +1,49 @@
+{
+  "project_info": {
+    "project_number": "396590070710",
+    "firebase_url": "https://rscranes-ace4a-default-rtdb.firebaseio.com",
+    "project_id": "rscranes-ace4a",
+    "storage_bucket": "rscranes-ace4a.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:396590070710:android:07fc8dedcae0611df95f17",
+        "android_client_info": {
+          "package_name": "com.example.rscranesback"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAyTkTsQMXaXAvmd_PneE8knd_-mcnLEB4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:396590070710:android:95f063cbbf17ab4cf95f17",
+        "android_client_info": {
+          "package_name": "com.mypackage.rscranes"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAyTkTsQMXaXAvmd_PneE8knd_-mcnLEB4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
