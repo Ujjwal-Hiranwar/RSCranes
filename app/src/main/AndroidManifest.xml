@@ -5,7 +5,9 @@
     <uses-feature
         android:name="android.hardware.telephony"
         android:required="false" />
+
     <uses-permission android:name="android.permission.SEND_SMS" />
+
     <application
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
@@ -17,8 +19,14 @@
         android:theme="@style/Theme.RSCranes"
         tools:targetApi="31">
         <activity
+            android:name=".AdminAddCrane"
+            android:exported="false" />
+        <activity
+            android:name=".LoginAsAdmin"
+            android:exported="false" />
+        <activity
             android:name=".SignUpActivity"
-            android:exported="true" >
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -36,8 +44,7 @@
             android:exported="false" />
         <activity
             android:name=".MainActivity"
-            android:exported="false">
-        </activity>
+            android:exported="false" />
     </application>
 
 </manifest>
