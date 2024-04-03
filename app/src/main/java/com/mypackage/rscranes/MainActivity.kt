@@ -22,5 +22,8 @@ class MainActivity : AppCompatActivity() {
             val intent = Intent(this, LogInActivity::class.java)
             startActivity(intent)
             finish()         }
+
+        var craneList = ArrayList<dataModel>()
+        var adapter = CraneAdapter(this,craneList)
     }
 }

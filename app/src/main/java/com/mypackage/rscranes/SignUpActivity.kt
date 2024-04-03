@@ -49,7 +49,7 @@ class SignUpActivity : AppCompatActivity() {
                             db.reference.child("Users").child(it).setValue(newUser)
                         }
                         Toast.makeText(this, "Registration Successful", Toast.LENGTH_SHORT).show()
-                        startActivity(Intent(this@SignUpActivity,LogInActivity::class.java))
+                        startActivity(Intent(this@SignUpActivity,MainActivity::class.java))
                     } else {
                         // Registration failed, display error message
                         Toast.makeText(this@SignUpActivity, "Registration failed: ${task.exception?.message}",

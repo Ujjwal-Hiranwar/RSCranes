@@ -8,10 +8,10 @@
             <InsightsFilterSettings>
               <option name="connection">
                 <ConnectionSetting>
-                  <option name="appId" value="PLACEHOLDER" />
-                  <option name="mobileSdkAppId" value="" />
-                  <option name="projectId" value="" />
-                  <option name="projectNumber" value="" />
+                  <option name="appId" value="com.mypackage.rscranes" />
+                  <option name="mobileSdkAppId" value="1:396590070710:android:95f063cbbf17ab4cf95f17" />
+                  <option name="projectId" value="rscranes-ace4a" />
+                  <option name="projectNumber" value="396590070710" />
                 </ConnectionSetting>
               </option>
               <option name="signal" value="SIGNAL_UNSPECIFIED" />
