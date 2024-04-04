@@ -32,8 +32,37 @@ class SignUpActivity : AppCompatActivity() {
             val intent = Intent(this@SignUpActivity, LogInActivity::class.java)
             startActivity(intent)
         }
+        binding.Adminlogin.setOnClickListener {
+            val intent = Intent(this@SignUpActivity, LoginAsAdmin::class.java)
+            startActivity(intent)
+        }
+        binding.Adminsignup.setOnClickListener {
+            val email = binding.email.text.toString()
+            val password = binding.password.text.toString()
+            val phone = binding.phone.text.toString()
 
-        binding.signup.setOnClickListener {
+            auth.createUserWithEmailAndPassword(email, password)
+                .addOnCompleteListener(this) { task ->
+                    if (task.isSuccessful) {
+                        // Registration successful, save user data to the database
+                        val userId = auth.currentUser?.uid
+                        val newUser = Users(email,phone)
+                        userId?.let {
+                            db.reference.child("Admins").child(it).setValue(newUser)
+                        }
+                        Toast.makeText(this, "Registration Successful", Toast.LENGTH_SHORT).show()
+                        val intent = Intent(this@SignUpActivity, LoginAsAdmin::class.java)
+                        startActivity(intent)
+                    } else {
+                        // Registration failed, display error message
+                        Toast.makeText(this@SignUpActivity, "Registration failed: ${task.exception?.message}",
+                            Toast.LENGTH_SHORT).show()
+                    }
+                }
+
+        }
+
+        binding.Usersignup.setOnClickListener {
             val email = binding.email.text.toString()
             val password = binding.password.text.toString()
             val phone = binding.phone.text.toString()
