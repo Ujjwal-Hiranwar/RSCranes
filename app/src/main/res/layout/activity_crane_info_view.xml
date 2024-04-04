@@ -19,177 +19,201 @@
         <TextView
             android:id="@+id/textView"
             android:layout_width="match_parent"
-            android:layout_height="126dp"
-            android:layout_marginTop="60dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="40dp"
             android:fontFamily="sans-serif"
             android:gravity="center"
             android:shadowColor="@color/black"
             android:text="Cranes Status"
-            android:textSize="64dp"
+            android:textSize="30dp"
             android:textStyle="bold" />
 
         <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="1145dp">
+            android:layout_height="match_parent">
 
 
-            <LinearLayout
+            <androidx.cardview.widget.CardView
                 android:id="@+id/cranecard"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_marginHorizontal="30dp"
+                android:layout_marginHorizontal="25dp"
                 android:layout_marginTop="80dp"
-                android:background="@color/white"
+                app:cardElevation="10dp"
+                android:backgroundTint="#E3E0C9"
+                android:outlineAmbientShadowColor="@color/black"
+               app:cardCornerRadius="25dp"
                 android:orientation="vertical"
 
                 android:paddingHorizontal="30dp"
                 android:paddingVertical="50dp">
-
-                <TextView
-                    android:id="@+id/cranename"
-                    android:layout_width="435dp"
+                <LinearLayout
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="SANY"
-                    android:textSize="40dp"
-                    android:textStyle="bold" />
+                    android:layout_margin="10dp"
+                    android:paddingVertical="15dp"
+                    android:orientation="vertical">
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="110dp"
-
-                    android:orientation="horizontal"
-                    >
-
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:layout_marginTop="40dp"
-
-                        android:gravity="left"
-                        android:padding="4dp"
-                        android:text="Location :"
-                        android:textSize="35dp"
-                        android:textStyle="bold" />
-
-                    <EditText
-                        android:id="@+id/cranelocation"
+                    <LinearLayout
                         android:layout_width="match_parent"
-                        android:layout_gravity="bottom"
-                        android:textSize="35dp"
-                        android:layout_height="78dp"
-                        android:layout_marginHorizontal="40dp"
-                        />
+                        android:layout_height="wrap_content"
+                        android:padding="5dp"
+                        android:orientation="horizontal">
 
-                </LinearLayout>
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:fontFamily="sans-serif"
+                            android:text="Model :"
+                            android:gravity="center"
+                            android:textSize="22dp"
+                            android:textStyle="bold" />
 
-                <LinearLayout
-                    android:paddingTop="20dp"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="horizontal">
+                        <EditText
+                            android:id="@+id/cranemodelname"
+                            android:layout_width="match_parent"
+                            android:hint="SANY"
+                            android:layout_height="match_parent"
+                            android:layout_marginLeft="20dp"
+                            android:textSize="20dp" />
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="70dp"
-                        android:layout_marginTop="20dp"
-                        android:gravity="left"
-                        android:padding="4dp"
-                        android:text="Capacity (t) :"
-                        android:textSize="35dp"
-                        android:textStyle="bold" />
 
-                    <EditText
-                        android:id="@+id/cranecapacity"
+                    </LinearLayout>
+
+                    <LinearLayout
                         android:layout_width="match_parent"
-                        android:layout_gravity="bottom"
-                        android:layout_height="79dp"
-                        android:textSize="35dp"
-                        android:layout_marginHorizontal="40dp"
-                        />
+                        android:layout_height="wrap_content"
+                        android:padding="10dp"
+                        android:orientation="horizontal">
 
-                </LinearLayout>
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:fontFamily="sans-serif"
+                            android:text="Location :"
+                            android:gravity="center"
+                            android:textSize="22dp"
+                            android:textStyle="bold" />
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:paddingTop="20dp"
-                    android:layout_height="match_parent"
-                    android:orientation="horizontal">
+                        <EditText
+                            android:id="@+id/cranelocation"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_marginLeft="20dp"
+                            android:hint="Mumbai"
+                            android:textSize="20dp" />
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:layout_marginTop="20dp"
-                        android:gravity="left"
-                        android:padding="4dp"
-                        android:text="Fly jib (m):"
-                        android:textSize="35dp"
-                        android:textStyle="bold" />
 
-                    <EditText
-                        android:id="@+id/craneflyjib"
+                    </LinearLayout>
+
+                    <LinearLayout
                         android:layout_width="match_parent"
-                        android:layout_height="78dp"
-                        android:layout_gravity="bottom"
-                        android:textSize="35dp"
-                        android:layout_marginHorizontal="40dp" />
-                </LinearLayout>
+                        android:layout_height="wrap_content"
+                        android:padding="10dp"
+                        android:orientation="horizontal">
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:paddingTop="20dp"
-                    android:orientation="horizontal">
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:fontFamily="sans-serif"
+                            android:text="Boom length :"
+                            android:gravity="center"
+                            android:textSize="22dp"
+                            android:textStyle="bold" />
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:layout_marginTop="20dp"
-                        android:gravity="left"
-                        android:padding="4dp"
-                        android:text="Boom length(m) :"
-                        android:textSize="35dp"
-                        android:textStyle="bold" />
+                        <EditText
+                            android:id="@+id/craneboomlength"
+                            android:layout_width="155dp"
+                            android:layout_height="match_parent"
+                            android:layout_marginLeft="20dp"
+                            android:hint="16.5"
+                            android:textSize="20dp" />
 
-                    <EditText
-                        android:id="@+id/craneboomlength"
-                        android:layout_width="288dp"
-                        android:layout_height="78dp"
-                        android:layout_gravity="bottom"
-                        android:textSize="35dp"
-                        android:layout_marginHorizontal="40dp" />
 
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:paddingTop="20dp"
-                    android:layout_height="match_parent"
-                    android:orientation="horizontal">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:layout_marginTop="20dp"
-                        android:gravity="left"
-                        android:padding="4dp"
-                        android:text="Status :"
-                        android:textSize="35dp"
-                        android:textStyle="bold" />
-
-                    <EditText
-                        android:id="@+id/cranestatus"
+                    </LinearLayout>
+                    <LinearLayout
                         android:layout_width="match_parent"
-                        android:layout_height="78dp"
-                        android:layout_gravity="bottom"
-                        android:textSize="35dp"
-                        android:layout_marginHorizontal="40dp" />
+                        android:layout_height="wrap_content"
+                        android:padding="10dp"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:fontFamily="sans-serif"
+                            android:text="Capacity (t) :"
+                            android:gravity="center"
+                            android:textSize="22dp"
+                            android:textStyle="bold" />
+
+                        <EditText
+                            android:id="@+id/cranecapacity"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_marginLeft="20dp"
+                            android:hint="50"
+                            android:textSize="20dp" />
+
+
+                    </LinearLayout>
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:padding="10dp"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:fontFamily="sans-serif"
+                            android:text="Fly jib (m) :"
+                            android:gravity="center"
+                            android:textSize="22dp"
+                            android:textStyle="bold" />
+
+                        <EditText
+                            android:id="@+id/craneflyjib"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_marginLeft="20dp"
+                            android:hint="16.0"
+                            android:textSize="20dp" />
+
+
+                    </LinearLayout>
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:padding="10dp"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:fontFamily="sans-serif"
+                            android:text="Status:"
+                            android:gravity="center"
+                            android:textSize="22dp"
+                            android:textStyle="bold" />
+
+                        <EditText
+                            android:id="@+id/cranestatus"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:hint="Available"
+                            android:layout_marginLeft="20dp"
+                            android:textSize="20dp" />
+
+
+                    </LinearLayout>
+
+
 
                 </LinearLayout>
 
 
 
-            </LinearLayout>
+            </androidx.cardview.widget.CardView>
 
         </ScrollView>
 
