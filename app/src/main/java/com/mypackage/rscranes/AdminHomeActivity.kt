@@ -5,6 +5,8 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import com.google.firebase.auth.FirebaseAuth
+import com.mypackage.rscranes.Adapters.CraneAdapter
+import com.mypackage.rscranes.Models.dataModel
 import com.mypackage.rscranes.databinding.ActivityAdminHomeBinding
 
 class AdminHomeActivity : AppCompatActivity() {

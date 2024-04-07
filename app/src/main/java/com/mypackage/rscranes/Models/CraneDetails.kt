@@ -1,4 +1,4 @@
-package com.mypackage.rscranes
+package com.mypackage.rscranes.Models
 
 data class CraneDetails(
     val model : String,
@@ -6,5 +6,6 @@ data class CraneDetails(
     val capacity : String,
     val boomlength : String,
     val flyjib : String,
-    val status : String
+    val status : String,
+    val image:String
 )

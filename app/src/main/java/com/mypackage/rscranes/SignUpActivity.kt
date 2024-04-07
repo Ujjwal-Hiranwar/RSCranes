@@ -7,6 +7,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.FirebaseDatabase
+import com.mypackage.rscranes.Models.Users
 import com.mypackage.rscranes.databinding.ActivitySignUpBinding
 
 

@@ -1,4 +1,4 @@
-package com.mypackage.rscranes
+package com.mypackage.rscranes.Models
 
 data class Users(
     val email : String = "",
