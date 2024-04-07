@@ -1,4 +1,4 @@
-package com.mypackage.rscranes.Adapters
+package Adapters
 
 import android.content.Context
 import android.view.LayoutInflater
@@ -8,7 +8,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.mypackage.rscranes.R
-import com.mypackage.rscranes.Models.dataModel
+import Models.dataModel
 import com.squareup.picasso.Picasso
 
 class CraneAdapter(private val context: Context, private val craneList: ArrayList<dataModel>) :

@@ -4,7 +4,6 @@ import android.app.Activity
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
-import android.provider.MediaStore
 import android.widget.Toast
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
@@ -14,8 +13,8 @@ import com.github.dhaval2404.imagepicker.ImagePicker
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
-import com.mypackage.rscranes.Models.CraneDetails
-import com.mypackage.rscranes.Models.dataModel
+import Models.CraneDetails
+import Models.dataModel
 import com.mypackage.rscranes.databinding.ActivityAdminAddCraneBinding
 
 class AdminAddCrane : AppCompatActivity() {

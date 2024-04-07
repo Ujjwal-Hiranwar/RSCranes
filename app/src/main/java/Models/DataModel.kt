@@ -1,4 +1,4 @@
-package com.mypackage.rscranes.Models
+package Models
 
 data class dataModel(
     var modelName : String = "",

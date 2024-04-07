@@ -14,8 +14,8 @@ import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
-import com.mypackage.rscranes.Adapters.CraneAdapter
-import com.mypackage.rscranes.Models.dataModel
+import Adapters.CraneAdapter
+import Models.dataModel
 import com.mypackage.rscranes.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
