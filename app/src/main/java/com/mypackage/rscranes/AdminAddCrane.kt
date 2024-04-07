@@ -24,6 +24,7 @@ class AdminAddCrane : AppCompatActivity() {
     private lateinit var db: FirebaseDatabase
     private lateinit var storageRef: StorageReference
     private var imageUri: Uri? = null
+    private lateinit var intent : Intent
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -66,6 +67,9 @@ class AdminAddCrane : AppCompatActivity() {
             } else {
                 Toast.makeText(this, "Please select an image", Toast.LENGTH_SHORT).show()
             }
+
+            intent = Intent(this,MainActivity::class.java)
+            startActivity(intent)
         }
     }
 
@@ -97,7 +101,7 @@ class AdminAddCrane : AppCompatActivity() {
                         )
                         val dataModel = dataModel(model,imageUrl)
                         db.getReference("Crane details").child(model).setValue(craneDetails)
-                        db.getReference("Model and Image").child("Model Name").setValue(dataModel)
+                        db.getReference("Model and Image").child(model).setValue(dataModel)
                         Toast.makeText(this, "Crane details added with image", Toast.LENGTH_SHORT)
                             .show()
                     }
