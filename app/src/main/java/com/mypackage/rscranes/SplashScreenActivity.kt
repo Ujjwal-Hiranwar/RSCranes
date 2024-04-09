@@ -29,47 +29,59 @@ class SplashScreenActivity : AppCompatActivity() {
         databaseReference = db.reference.child("Admins")
 
         // Check if the user is already signed in
-        val currentUser = auth.currentUser
+        val currentUser = auth.currentUser?.uid
+        Toast.makeText(this@SplashScreenActivity, currentUser.toString(), Toast.LENGTH_LONG).show()
 
         Handler(Looper.getMainLooper()).postDelayed({
             if (currentUser != null) {
-                databaseReference.addValueEventListener(object : ValueEventListener {
-                    override fun onDataChange(snapshot: DataSnapshot) {
-                        if (snapshot.exists()) {
-                            adminUidList.clear() // Clear the list before adding new data
-
-                            for (snapshot in snapshot.children) {
-                                val adminUid = snapshot.key // Get the UID of the admin
-                                adminUid?.let { adminUidList.add(it) } // Add only non-null UID
-                            }
-
-                            if (adminUidList.contains(currentUser.uid)) {
-                                // Current user is an admin, open AdminHomeActivity
-                                val intent = Intent(this@SplashScreenActivity, AdminHomeActivity::class.java)
-                                startActivity(intent)
-                            } else {
-                                // Current user is not an admin, open MainActivity
-                                val intent = Intent(this@SplashScreenActivity, MainActivity::class.java)
-                                startActivity(intent)
-                            }
-                            finish()
-                        }
-                    }
-
-                    override fun onCancelled(error: DatabaseError) {
-                        // Handle cancellation of the database operation
-                        Toast.makeText(
-                            this@SplashScreenActivity,
-                            "Failed to read admin UIDs: ${error.message}",
-                            Toast.LENGTH_SHORT
-                        ).show()
-                    }
-                })
+                checkUser(currentUser.toString())
             }
             finish()
-        },3000)
+        },4000)
 
 
     }
+    private fun checkUser(currentUser:String){
+        databaseReference.addValueEventListener(object : ValueEventListener {
+            override fun onDataChange(snapshot: DataSnapshot) {
+                if (snapshot.exists()) {
+                    adminUidList.clear() // Clear the list before adding new data
+
+                    for (snapshot in snapshot.children) {
+                        val adminUid = snapshot.key // Get the UID of the admin
+                        adminUid?.let { adminUidList.add(it) } // Add only non-null UID
+                    }
+
+                    val isAdmin = adminUidList.contains(currentUser)
+                    Toast.makeText(this@SplashScreenActivity, isAdmin.toString(), Toast.LENGTH_SHORT).show()
+                    routeUserBasedOnRole(isAdmin)
+
+
+                }
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+                // Handle cancellation of the database operation
+                Toast.makeText(
+                    this@SplashScreenActivity,
+                    "Failed to read admin UIDs: ${error.message}",
+                    Toast.LENGTH_SHORT
+                ).show()
+            }
+        })
+    }
+    private fun routeUserBasedOnRole(isAdmin: Boolean) {
+        val intent = if (isAdmin) {
+            Intent(this, AdminHomeActivity::class.java).also {
+                it.putExtra("isAdmin", true) // Passing the isAdmin value
+            }
+        } else {
+            Intent(this, MainActivity::class.java)
+        }
+        startActivity(intent)
+        finish() // Finish SplashScreenActivity after starting the next one
+    }
+
+
 
 }

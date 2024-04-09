@@ -69,10 +69,10 @@
                             android:textSize="22dp"
                             android:textStyle="bold" />
 
-                        <EditText
+                        <TextView
                             android:id="@+id/cranemodelname"
                             android:layout_width="match_parent"
-                            android:hint="SANY"
+                            android:text="SANY"
                             android:layout_height="match_parent"
                             android:layout_marginLeft="20dp"
                             android:textSize="20dp" />
@@ -95,12 +95,12 @@
                             android:textSize="22dp"
                             android:textStyle="bold" />
 
-                        <EditText
+                        <TextView
                             android:id="@+id/cranelocation"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:layout_marginLeft="20dp"
-                            android:hint="Mumbai"
+                            android:text="Mumbai"
                             android:textSize="20dp" />
 
 
@@ -121,12 +121,12 @@
                             android:textSize="22dp"
                             android:textStyle="bold" />
 
-                        <EditText
+                        <TextView
                             android:id="@+id/craneboomlength"
                             android:layout_width="155dp"
                             android:layout_height="match_parent"
                             android:layout_marginLeft="20dp"
-                            android:hint="16.5"
+                            android:text="16.5"
                             android:textSize="20dp" />
 
 
@@ -146,12 +146,12 @@
                             android:textSize="22dp"
                             android:textStyle="bold" />
 
-                        <EditText
+                        <TextView
                             android:id="@+id/cranecapacity"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:layout_marginLeft="20dp"
-                            android:hint="50"
+                            android:text="50"
                             android:textSize="20dp" />
 
 
@@ -171,12 +171,12 @@
                             android:textSize="22dp"
                             android:textStyle="bold" />
 
-                        <EditText
+                        <TextView
                             android:id="@+id/craneflyjib"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:layout_marginLeft="20dp"
-                            android:hint="16.0"
+                            android:text="16.0"
                             android:textSize="20dp" />
 
 
@@ -196,11 +196,11 @@
                             android:textSize="22dp"
                             android:textStyle="bold" />
 
-                        <EditText
+                        <TextView
                             android:id="@+id/cranestatus"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:hint="Available"
+                            android:text="Available"
                             android:layout_marginLeft="20dp"
                             android:textSize="20dp" />
 

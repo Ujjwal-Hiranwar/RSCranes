@@ -15,6 +15,12 @@ import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
 import Models.CraneDetails
 import Models.dataModel
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.auth
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.DatabaseReference
+import com.google.firebase.database.ValueEventListener
 import com.mypackage.rscranes.databinding.ActivityAdminAddCraneBinding
 
 class AdminAddCrane : AppCompatActivity() {
@@ -23,14 +29,21 @@ class AdminAddCrane : AppCompatActivity() {
     private lateinit var db: FirebaseDatabase
     private lateinit var storageRef: StorageReference
     private var imageUri: Uri? = null
-    private lateinit var intent : Intent
+    private lateinit var databaseReference: DatabaseReference
+    private val adminUidList = ArrayList<String>()
+    private lateinit var auth : FirebaseAuth
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_admin_add_crane)
 
+        auth = FirebaseAuth.getInstance()
         db = FirebaseDatabase.getInstance()
         storageRef = FirebaseStorage.getInstance().reference
+        databaseReference = db.reference.child("Admins")
+        val currentUser = auth.currentUser?.uid
+
 
         val launcher: ActivityResultLauncher<Intent> = registerForActivityResult(
             ActivityResultContracts.StartActivityForResult()
@@ -66,6 +79,8 @@ class AdminAddCrane : AppCompatActivity() {
             } else {
                 Toast.makeText(this, "Please select an image", Toast.LENGTH_SHORT).show()
             }
+
+            checkUser(currentUser.toString())
 
             intent = Intent(this,MainActivity::class.java)
             startActivity(intent)
@@ -124,5 +139,42 @@ class AdminAddCrane : AppCompatActivity() {
         }
     }
 
+    private fun checkUser(currentUser:String){
+        databaseReference.addValueEventListener(object : ValueEventListener {
+            override fun onDataChange(snapshot: DataSnapshot) {
+                if (snapshot.exists()) {
+                    adminUidList.clear() // Clear the list before adding new data
+
+                    for (snapshot in snapshot.children) {
+                        val adminUid = snapshot.key // Get the UID of the admin
+                        adminUid?.let { adminUidList.add(it) } // Add only non-null UID
+                    }
+
+                    val isAdmin = adminUidList.contains(currentUser)
+                    Toast.makeText(this@AdminAddCrane, isAdmin.toString(), Toast.LENGTH_SHORT).show()
+
+                    if (isAdmin){
+                        startActivity(Intent(this@AdminAddCrane,AdminHomeActivity::class.java))
+                    }
+                    else{
+                        Toast.makeText(
+                            this@AdminAddCrane,
+                            "Something went wrong in AdminAddCrane",
+                            Toast.LENGTH_LONG
+                        ).show()
+                    }
+                }
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+                // Handle cancellation of the database operation
+                Toast.makeText(
+                    this@AdminAddCrane,
+                    "Failed to read admin UIDs: ${error.message}",
+                    Toast.LENGTH_SHORT
+                ).show()
+            }
+        })
+    }
 }
 

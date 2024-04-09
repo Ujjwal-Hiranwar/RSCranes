@@ -9,6 +9,13 @@ import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import Adapters.CraneAdapter
 import Models.dataModel
+import android.content.ContentValues
+import android.util.Log
+import android.widget.Toast
+import androidx.recyclerview.widget.LinearLayoutManager
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.ValueEventListener
 import com.mypackage.rscranes.databinding.ActivityAdminHomeBinding
 
 class AdminHomeActivity : AppCompatActivity() {
@@ -21,9 +28,12 @@ class AdminHomeActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_admin_home)
         auth = FirebaseAuth.getInstance()
+        db = FirebaseDatabase.getInstance()
+        databaseReference = db.reference.child("Model and Image")
+
         binding.logout.setOnClickListener {
             auth.signOut()
-            val intent = Intent(this, LogInActivity::class.java)
+            val intent = Intent(this, SignUpActivity::class.java)
             startActivity(intent)
             finish()
         }
@@ -31,33 +41,29 @@ class AdminHomeActivity : AppCompatActivity() {
             startActivity(Intent(this@AdminHomeActivity,AdminAddCrane::class.java))
         }
 
-        var craneList = ArrayList<dataModel>()
-        var adapter = CraneAdapter(this,craneList)
+        binding.craneRecycleView.layoutManager = LinearLayoutManager(this)
 
+        databaseReference.addValueEventListener(object : ValueEventListener {
 
-//        binding.craneRecycleView.layoutManager = LinearLayoutManager(this)
-//
-//        databaseReference.addValueEventListener(object : ValueEventListener {
-//
-//            override fun onDataChange(snapshot: DataSnapshot) {
-//                if (snapshot.exists()) {
-//                    craneList.clear() // Clear the list before adding new data
-//
-//                    for (snapshot in snapshot.children) {
-//                        val crane = snapshot.getValue(dataModel::class.java)
-//                        crane?.let { craneList.add(it) }  // Add only non-null crane objects
-//                    }
-//
-//                    val adapter = CraneAdapter(this@AdminHomeActivity, craneList)
-//                    binding.craneRecycleView.adapter = adapter
-//                } else {
-//                    Toast.makeText(this@AdminHomeActivity, "Doesn't exist.", Toast.LENGTH_SHORT).show()
-//                }
-//            }
-//
-//            override fun onCancelled(error: DatabaseError) {
-//                Log.w(ContentValues.TAG, "Failed to read value.", error.toException())
-//            }
-//        })
+            override fun onDataChange(snapshot: DataSnapshot) {
+                if (snapshot.exists()) {
+                    craneList.clear() // Clear the list before adding new data
+
+                    for (snapshot in snapshot.children) {
+                        val crane = snapshot.getValue(dataModel::class.java)
+                        crane?.let { craneList.add(it) }  // Add only non-null crane objects
+                    }
+
+                    val adapter = CraneAdapter(this@AdminHomeActivity, craneList)
+                    binding.craneRecycleView.adapter = adapter
+                } else {
+                    Toast.makeText(this@AdminHomeActivity, "Doesn't exist.", Toast.LENGTH_SHORT).show()
+                }
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+                Log.w(ContentValues.TAG, "Failed to read value.", error.toException())
+            }
+        })
     }
 }
