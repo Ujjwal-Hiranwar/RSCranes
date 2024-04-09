@@ -16,7 +16,6 @@ import com.google.firebase.storage.StorageReference
 import Models.CraneDetails
 import Models.dataModel
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.auth
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.DatabaseReference
@@ -58,8 +57,7 @@ class AdminAddCrane : AppCompatActivity() {
         binding.uploadImg.setOnClickListener {
             val requestCode =
                 launcher.hashCode()
-            ImagePicker.with(this@AdminAddCrane)
-                .crop()  // Enable cropping (optional)
+                ImagePicker.with(this@AdminAddCrane)
                 .compress(1024)
                 .maxResultSize(1080, 1080)
                 .start(requestCode)
@@ -67,15 +65,16 @@ class AdminAddCrane : AppCompatActivity() {
         }
 
         binding.addcrane.setOnClickListener {
-            val model = binding.editcranemodel.text.toString()
-            val location = binding.editcranelocation.text.toString()
-            val capacity = binding.editcranecapacity.text.toString()
-            val boomLength = binding.editcraneboomlength.text.toString()
-            val flyjib = binding.editcraneflyjib.text.toString()
-            val status = binding.editstatus.text.toString()
+            val model = binding.editcranemodel.text.trim().toString()
+            val location = binding.editcranelocation.text.trim().toString()
+            val capacity = binding.editcranecapacity.text.trim().toString()
+            val boomLength = binding.editcraneboomlength.text.trim().toString()
+            val flyjib = binding.editcraneflyjib.text.trim().toString()
+            val status = binding.editstatus.text.trim().toString()
+            val type = binding.editType.text.trim().toString()
 
             if (imageUri != null) {
-                uploadImageToFirebase(model, location, capacity, boomLength, flyjib, status)
+                uploadImageToFirebase(model, location, capacity, boomLength, flyjib, status,type)
             } else {
                 Toast.makeText(this, "Please select an image", Toast.LENGTH_SHORT).show()
             }
@@ -93,7 +92,8 @@ class AdminAddCrane : AppCompatActivity() {
         capacity: String,
         boomLength: String,
         flyjib: String,
-        status: String
+        status: String,
+        type : String
     ) {
         val imageRef =
             storageRef.child("crane_images/" + model + "_" + System.currentTimeMillis() + ".jpg") // Create unique filename with timestamp
@@ -111,7 +111,8 @@ class AdminAddCrane : AppCompatActivity() {
                             boomLength,
                             flyjib,
                             status,
-                            imageUrl
+                            imageUrl,
+                            type
                         )
                         val dataModel = dataModel(model,imageUrl)
                         db.getReference("Crane details").child(model).setValue(craneDetails)

@@ -7,5 +7,6 @@ data class CraneDetails(
     val boomlength : String,
     val flyjib : String,
     val status : String,
-    val image:String
+    val image:String,
+    val type : String
 )

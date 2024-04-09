@@ -39,6 +39,8 @@ class MainActivity : AppCompatActivity() {
             finish()
         }
 
+
+
         binding.craneRecycleView.layoutManager = LinearLayoutManager(this)
 
         databaseReference.addValueEventListener(object : ValueEventListener {
@@ -54,6 +56,7 @@ class MainActivity : AppCompatActivity() {
 
                     val adapter = CraneAdapter(this@MainActivity, craneList)
                     binding.craneRecycleView.adapter = adapter
+
                 } else {
                     Toast.makeText(this@MainActivity, "Doesn't exist.", Toast.LENGTH_SHORT).show()
                 }

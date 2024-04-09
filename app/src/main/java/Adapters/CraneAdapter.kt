@@ -9,6 +9,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.mypackage.rscranes.R
 import Models.dataModel
+import android.widget.Button
 import com.squareup.picasso.Picasso
 
 class CraneAdapter(private val context: Context, private val craneList: ArrayList<dataModel>) :
@@ -16,6 +17,7 @@ class CraneAdapter(private val context: Context, private val craneList: ArrayLis
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val modelName: TextView = itemView.findViewById(R.id.mName)
         val img: ImageView = itemView.findViewById(R.id.crane_img)
+        val checkBtn : Button = itemView.findViewById(R.id.checkNow)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
