@@ -18,13 +18,13 @@ import Adapters.CraneAdapter
 import Models.dataModel
 import com.mypackage.rscranes.databinding.ActivityMainBinding
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(), CraneAdapter.OnItemClickListener {
     private lateinit var binding: ActivityMainBinding
     private lateinit var auth: FirebaseAuth
     private lateinit var db: FirebaseDatabase
     private lateinit var databaseReference: DatabaseReference
     private val craneList = ArrayList<dataModel>() // Declare list at class level
-
+    private var adapter : CraneAdapter? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
@@ -40,7 +40,6 @@ class MainActivity : AppCompatActivity() {
         }
 
 
-
         binding.craneRecycleView.layoutManager = LinearLayoutManager(this)
 
         databaseReference.addValueEventListener(object : ValueEventListener {
@@ -54,8 +53,9 @@ class MainActivity : AppCompatActivity() {
                         crane?.let { craneList.add(it) }  // Add only non-null crane objects
                     }
 
-                    val adapter = CraneAdapter(this@MainActivity, craneList)
+                 adapter = CraneAdapter(this@MainActivity, craneList)
                     binding.craneRecycleView.adapter = adapter
+                    adapter!!.setOnItemClickListener(this@MainActivity)
 
                 } else {
                     Toast.makeText(this@MainActivity, "Doesn't exist.", Toast.LENGTH_SHORT).show()
@@ -67,4 +67,12 @@ class MainActivity : AppCompatActivity() {
             }
         })
     }
+
+    override fun onItemClick(position: Int) {
+        val clickedItem = craneList[position]
+        val intent = Intent(this,CraneInfoView::class.java)
+        intent.putExtra("key",clickedItem.modelName)
+        startActivity(intent)
+    }
+
 }

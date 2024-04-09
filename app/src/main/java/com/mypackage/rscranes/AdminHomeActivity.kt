@@ -38,32 +38,8 @@ class AdminHomeActivity : AppCompatActivity() {
             finish()
         }
         binding.addCranes.setOnClickListener {
-            startActivity(Intent(this@AdminHomeActivity,AdminAddCrane::class.java))
+            startActivity(Intent(this@AdminHomeActivity, AdminAddCrane::class.java))
         }
 
-        binding.craneRecycleView.layoutManager = LinearLayoutManager(this)
-
-        databaseReference.addValueEventListener(object : ValueEventListener {
-
-            override fun onDataChange(snapshot: DataSnapshot) {
-                if (snapshot.exists()) {
-                    craneList.clear() // Clear the list before adding new data
-
-                    for (snapshot in snapshot.children) {
-                        val crane = snapshot.getValue(dataModel::class.java)
-                        crane?.let { craneList.add(it) }  // Add only non-null crane objects
-                    }
-
-                    val adapter = CraneAdapter(this@AdminHomeActivity, craneList)
-                    binding.craneRecycleView.adapter = adapter
-                } else {
-                    Toast.makeText(this@AdminHomeActivity, "Doesn't exist.", Toast.LENGTH_SHORT).show()
-                }
-            }
-
-            override fun onCancelled(error: DatabaseError) {
-                Log.w(ContentValues.TAG, "Failed to read value.", error.toException())
-            }
-        })
     }
 }

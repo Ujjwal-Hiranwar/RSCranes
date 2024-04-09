@@ -32,7 +32,13 @@ class SplashScreenActivity : AppCompatActivity() {
         val currentUser = auth.currentUser?.uid
         Toast.makeText(this@SplashScreenActivity, currentUser.toString(), Toast.LENGTH_LONG).show()
 
+
         Handler(Looper.getMainLooper()).postDelayed({
+
+            if(currentUser == null){
+                val intent =  Intent(this, LogInActivity::class.java)
+                startActivity(intent)
+            }
             if (currentUser != null) {
                 checkUser(currentUser.toString())
             }
