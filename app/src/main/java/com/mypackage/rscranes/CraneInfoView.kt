@@ -4,6 +4,7 @@ import Adapters.CraneAdapter
 import Models.CraneDetails
 import Models.dataModel
 import android.content.ContentValues
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
@@ -78,14 +79,19 @@ class CraneInfoView : AppCompatActivity() {
 
                 }
             }
-
-
-
             override fun onCancelled(error: DatabaseError) {
                 Log.w(ContentValues.TAG, "Failed to read value.", error.toException())
             }
         })
 
+        binding.sellOrRentbtn.setOnClickListener {
+
+            if (binding.cranestatus.text.toString().lowercase() == "rent") {
+                startActivity(Intent(this@CraneInfoView, CraneforRent::class.java))
+            } else if (binding.cranestatus.text.toString().lowercase() == "sell") {
+
+            }
+        }
     }
 
 }

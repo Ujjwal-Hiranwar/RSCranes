@@ -15,6 +15,9 @@ import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
 import Models.CraneDetails
 import Models.dataModel
+import android.annotation.SuppressLint
+import android.content.ContentValues
+import android.util.Log
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
@@ -30,9 +33,10 @@ class AdminAddCrane : AppCompatActivity() {
     private var imageUri: Uri? = null
     private lateinit var databaseReference: DatabaseReference
     private val adminUidList = ArrayList<String>()
-    private lateinit var auth : FirebaseAuth
+    private lateinit var auth: FirebaseAuth
 
 
+    @SuppressLint("SuspiciousIndentation")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_admin_add_crane)
@@ -57,7 +61,7 @@ class AdminAddCrane : AppCompatActivity() {
         binding.uploadImg.setOnClickListener {
             val requestCode =
                 launcher.hashCode()
-                ImagePicker.with(this@AdminAddCrane)
+            ImagePicker.with(this@AdminAddCrane)
                 .compress(1024)
                 .maxResultSize(1080, 1080)
                 .start(requestCode)
@@ -73,16 +77,30 @@ class AdminAddCrane : AppCompatActivity() {
             val status = binding.editstatus.text.trim().toString()
             val type = binding.editType.text.trim().toString()
 
-            if (imageUri != null) {
-                uploadImageToFirebase(model, location, capacity, boomLength, flyjib, status,type)
-            } else {
-                Toast.makeText(this, "Please select an image", Toast.LENGTH_SHORT).show()
+            if (model.isNotEmpty() && location.isNotEmpty() && capacity.isNotEmpty() && boomLength.isNotEmpty() && flyjib.isNotEmpty() && status.isNotEmpty() && type.isNotEmpty()) {
+
+                if (imageUri != null) {
+                    uploadImageToFirebase(
+                        model,
+                        location,
+                        capacity,
+                        boomLength,
+                        flyjib,
+                        status,
+                        type
+                    )
+                } else {
+                    Toast.makeText(this, "Please select an image", Toast.LENGTH_SHORT).show()
+                }
+
+                checkUser(currentUser.toString())
+
+                intent = Intent(this, MainActivity::class.java)
+                startActivity(intent)
+            }else {
+                Toast.makeText(this, "Please fill all required details", Toast.LENGTH_SHORT).show()
             }
 
-            checkUser(currentUser.toString())
-
-            intent = Intent(this,MainActivity::class.java)
-            startActivity(intent)
         }
     }
 
@@ -93,7 +111,7 @@ class AdminAddCrane : AppCompatActivity() {
         boomLength: String,
         flyjib: String,
         status: String,
-        type : String
+        type: String
     ) {
         val imageRef =
             storageRef.child("crane_images/" + model + "_" + System.currentTimeMillis() + ".jpg") // Create unique filename with timestamp
@@ -114,7 +132,7 @@ class AdminAddCrane : AppCompatActivity() {
                             imageUrl,
                             type
                         )
-                        val dataModel = dataModel(model,imageUrl)
+                        val dataModel = dataModel(model, imageUrl)
                         db.getReference("Crane details").child(model).setValue(craneDetails)
                         db.getReference("Model and Image").child(model).setValue(dataModel)
                         Toast.makeText(this, "Crane details added with image", Toast.LENGTH_SHORT)
@@ -131,6 +149,7 @@ class AdminAddCrane : AppCompatActivity() {
                 }
         }
     }
+
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
 
@@ -140,7 +159,7 @@ class AdminAddCrane : AppCompatActivity() {
         }
     }
 
-    private fun checkUser(currentUser:String){
+    private fun checkUser(currentUser: String) {
         databaseReference.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
                 if (snapshot.exists()) {
@@ -148,16 +167,17 @@ class AdminAddCrane : AppCompatActivity() {
 
                     for (snapshot in snapshot.children) {
                         val adminUid = snapshot.key // Get the UID of the admin
-                        adminUid?.let { adminUidList.add(it) } // Add only non-null UID
+                        adminUid?.let { adminUidList.add(it)
+                            Log.d("AdminAddCrane",it)} // Add only non-null UID
                     }
 
                     val isAdmin = adminUidList.contains(currentUser)
-                    Toast.makeText(this@AdminAddCrane, isAdmin.toString(), Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this@AdminAddCrane, isAdmin.toString(), Toast.LENGTH_SHORT)
+                        .show()
 
-                    if (isAdmin){
-                        startActivity(Intent(this@AdminAddCrane,AdminHomeActivity::class.java))
-                    }
-                    else{
+                    if (isAdmin) {
+                        startActivity(Intent(this@AdminAddCrane, AdminHomeActivity::class.java))
+                    } else {
                         Toast.makeText(
                             this@AdminAddCrane,
                             "Something went wrong in AdminAddCrane",
