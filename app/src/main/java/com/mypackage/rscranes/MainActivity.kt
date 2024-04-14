@@ -16,28 +16,46 @@ import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 import Adapters.CraneAdapter
 import Models.dataModel
+import android.view.MenuItem
+import androidx.appcompat.app.ActionBarDrawerToggle
+import androidx.core.view.GravityCompat
+import androidx.drawerlayout.widget.DrawerLayout
+import com.google.android.material.navigation.NavigationView
 import com.mypackage.rscranes.databinding.ActivityMainBinding
 
-class MainActivity : AppCompatActivity(), CraneAdapter.OnItemClickListener {
+class MainActivity : AppCompatActivity(), CraneAdapter.OnItemClickListener , NavigationView.OnNavigationItemSelectedListener{
     private lateinit var binding: ActivityMainBinding
     private lateinit var auth: FirebaseAuth
     private lateinit var db: FirebaseDatabase
     private lateinit var databaseReference: DatabaseReference
     private val craneList = ArrayList<dataModel>() // Declare list at class level
     private var adapter : CraneAdapter? = null
+    private lateinit var drawerLayout : DrawerLayout
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
         auth = FirebaseAuth.getInstance()
         db = FirebaseDatabase.getInstance()
         databaseReference = db.reference.child("Model and Image")
+        drawerLayout = binding.drawerLayout
 
-        binding.logout.setOnClickListener {
-            auth.signOut()
-            val intent = Intent(this, LogInActivity::class.java)
-            startActivity(intent)
-            finish()
-        }
+        val toolbar = binding.toolbar
+        setSupportActionBar(toolbar)
+
+        val navigationView = binding.navView
+        navigationView.setNavigationItemSelectedListener(this)
+
+        val toggle = ActionBarDrawerToggle(this,drawerLayout,toolbar,R.string.open_nav,R.string.cloase_nav)
+        drawerLayout.addDrawerListener(toggle)
+        toggle.syncState()
+
+//        binding.logout.setOnClickListener {
+//            auth.signOut()
+//            val intent = Intent(this, LogInActivity::class.java)
+//            startActivity(intent)
+//            finish()
+//        }
 
 
         binding.craneRecycleView.layoutManager = LinearLayoutManager(this)
@@ -73,6 +91,22 @@ class MainActivity : AppCompatActivity(), CraneAdapter.OnItemClickListener {
         val intent = Intent(this,CraneInfoView::class.java)
         intent.putExtra("key",clickedItem.modelName)
         startActivity(intent)
+    }
+
+    override fun onNavigationItemSelected(item: MenuItem): Boolean {
+        when(item.itemId){
+            R.id.nav_logout -> {
+                auth.signOut()
+                val intent = Intent(this, SignUpActivity::class.java)
+                startActivity(intent)
+                finish()
+            }
+            R.id.nav_status -> Toast.makeText(this, "Nav Status Clicked", Toast.LENGTH_SHORT).show()
+            R.id.nav_account -> Toast.makeText(this, "Nav Account Clicked", Toast.LENGTH_SHORT).show()
+            R.id.nav_request -> Toast.makeText(this, "Nav Request Clicked", Toast.LENGTH_SHORT).show()
+        }
+        drawerLayout.closeDrawer(GravityCompat.START)
+        return true
     }
 
 }

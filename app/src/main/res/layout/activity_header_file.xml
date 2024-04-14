@@ -1,10 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main"
     android:layout_width="match_parent"
-    android:layout_height="180dp"
+    android:layout_height="match_parent"
     android:orientation="vertical"
     android:background="#E6D7AA"
     tools:context=".headerFile">
@@ -13,18 +12,28 @@
         android:id="@+id/textView2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="bottom"
-        android:padding="30dp"
         android:text="RS Cranes"
+        android:layout_margin="15dp"
         android:textSize="30dp"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="parent" />
+        android:textStyle="bold" />
 
-    <EditText
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:gravity="bottom"
-        android:paddingHorizontal="30dp"
-        android:text="usermailid@gmail.com"
-        app:layout_constraintBottom_toBottomOf="@+id/textView2" />
-</androidx.constraintlayout.widget.ConstraintLayout>
+<!--    <TextView-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:textSize="22dp"-->
+<!--        android:textStyle="bold"-->
+<!--        android:text="Requests"-->
+<!--        android:layout_marginStart="12dp"-->
+
+<!--        />-->
+<!--    <TextView-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:textSize="22dp"-->
+<!--        android:layout_marginTop="10dp"-->
+<!--        android:textStyle="bold"-->
+<!--        android:text="Log Out"-->
+<!--        android:layout_marginStart="12dp"-->
+
+<!--        />-->
+</LinearLayout>
