@@ -101,8 +101,8 @@ class MainActivity : AppCompatActivity(), CraneAdapter.OnItemClickListener , Nav
                 startActivity(intent)
                 finish()
             }
-            R.id.nav_status -> Toast.makeText(this, "Nav Status Clicked", Toast.LENGTH_SHORT).show()
-            R.id.nav_account -> Toast.makeText(this, "Nav Account Clicked", Toast.LENGTH_SHORT).show()
+//            R.id.nav_status -> Toast.makeText(this, "Nav Status Clicked", Toast.LENGTH_SHORT).show()
+//            R.id.nav_account -> Toast.makeText(this, "Nav Account Clicked", Toast.LENGTH_SHORT).show()
             R.id.nav_request -> Toast.makeText(this, "Nav Request Clicked", Toast.LENGTH_SHORT).show()
         }
         drawerLayout.closeDrawer(GravityCompat.START)

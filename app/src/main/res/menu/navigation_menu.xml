@@ -3,32 +3,34 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:ignore="HardcodedText"
     tools:showIn="navigation_view">
-    <group>
+<!--    <group>-->
 
-    <item
-        android:id="@+id/nav_account"
-        android:title="My Account" />
+<!--    <item-->
+<!--        android:id="@+id/nav_account"-->
+<!--        android:title="My Account"-->
+<!--        -->
+<!--        />-->
 
-    <item
-        android:id="@+id/nav_status"
-        android:title="Status" />
+<!--    <item-->
+<!--        android:id="@+id/nav_status"-->
+<!--        android:title="Status" />-->
 
-    <item
-        android:id="@+id/nav_rent"
-        android:title="Rent" />
-    </group>
+<!--    <item-->
+<!--        android:id="@+id/nav_rent"-->
+<!--        android:title="Rent" />-->
+<!--    </group>-->
+<!--    <item android:title="For you">-->
   <group>
 
-    <item android:title="For you">
-       <menu>
+
            <item android:id="@+id/nav_request"
                android:title="Request" />
 
            <item android:id="@+id/nav_logout"
                android:title="Logout" />
-       </menu>
 
-    </item>
+
+<!--    </item>-->
 
 
   </group>
