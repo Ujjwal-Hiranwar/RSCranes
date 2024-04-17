@@ -3,14 +3,11 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:ignore="HardcodedText"
     tools:showIn="navigation_view">
-  <group>
+    <group>
 
-           <item android:id="@+id/nav_request"
-               android:title="Request" />
+        <item android:id="@+id/nav_logout"
+            android:title="Logout" />
 
-           <item android:id="@+id/nav_logout"
-               android:title="Logout" />
-
-  </group>
+    </group>
 
 </menu>

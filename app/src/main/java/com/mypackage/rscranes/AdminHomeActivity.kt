@@ -96,11 +96,9 @@ class AdminHomeActivity : AppCompatActivity(), CraneAdapter.OnItemClickListener,
                 startActivity(intent)
                 finish()
             }
-//            R.id.nav_status -> Toast.makeText(this, "Nav Status Clicked", Toast.LENGTH_SHORT).show()
-//            R.id.nav_account -> Toast.makeText(this, "Nav Account Clicked", Toast.LENGTH_SHORT).show()
-            R.id.nav_request -> {val intent = Intent(this, SellRentRecycler::class.java)
+            R.id.nav_request -> {
+                val intent = Intent(this, SellRentRecycler::class.java)
                 startActivity(intent)
-                finish()
             }
         }
         drawerLayout.closeDrawer(GravityCompat.START)
