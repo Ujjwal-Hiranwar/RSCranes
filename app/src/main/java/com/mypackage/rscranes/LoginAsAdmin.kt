@@ -36,7 +36,22 @@ class LoginAsAdmin : AppCompatActivity() {
             startActivity(intent)
         }
     }
+    private fun resetpassword() {
+        val email = binding.adminusername.text.toString().trim()
+        if (email.isNotEmpty()){
+            auth.sendPasswordResetEmail(email)
+                .addOnCompleteListener { task->
+                    if (task.isSuccessful){
+                        Toast.makeText(this@LoginAsAdmin, "Reset Password Link has been sent to you email", Toast.LENGTH_LONG).show()
 
+                    }else{
+                        Toast.makeText(this@LoginAsAdmin, "Something went wrong !", Toast.LENGTH_LONG).show()
+                    }
+                }
+        }else{
+            Toast.makeText(this@LoginAsAdmin, "Please Enter email first then click on Forgot password", Toast.LENGTH_LONG).show()
+        }
+    }
     private fun loginUser(email: String, password: String) {
         auth.signInWithEmailAndPassword(email, password)
             .addOnCompleteListener(this) { task ->

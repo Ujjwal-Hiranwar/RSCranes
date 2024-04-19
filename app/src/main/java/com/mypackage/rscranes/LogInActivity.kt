@@ -41,8 +41,24 @@ class LogInActivity : AppCompatActivity() {
         }
 
         binding.forgot.setOnClickListener {
-            val intent = Intent(this@LogInActivity, ForgotActivity::class.java)
-            startActivity(intent)
+            resetpassword()
+        }
+    }
+
+    private fun resetpassword() {
+        val email = binding.email.text.toString().trim()
+        if (email.isNotEmpty()){
+            auth.sendPasswordResetEmail(email)
+                .addOnCompleteListener { task->
+                    if (task.isSuccessful){
+                        Toast.makeText(this@LogInActivity, "Reset Password Link has been sent to you email", Toast.LENGTH_LONG).show()
+
+                    }else{
+                        Toast.makeText(this@LogInActivity, "Something went wrong !", Toast.LENGTH_LONG).show()
+                    }
+                }
+        }else{
+            Toast.makeText(this@LogInActivity, "Please Enter email first then click on Forgot password", Toast.LENGTH_LONG).show()
         }
     }
 

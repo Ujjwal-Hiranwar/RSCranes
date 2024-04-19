@@ -27,7 +27,7 @@ class RentRequest : AppCompatActivity(), SellRentAdapter.OnItemClickListener,
     private lateinit var rv: RecyclerView
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_sell_rent_recycler)
+        setContentView(R.layout.activity_rent_request)
         auth = FirebaseAuth.getInstance()
         db = FirebaseDatabase.getInstance()
         databaseReference = db.reference.child("Rent Request")

@@ -69,7 +69,7 @@ class SellRequest : AppCompatActivity(), SellRentAdapter.OnItemClickListener,
 
     override fun onItemClick(position: Int) {
         val clickedItem = List[position]
-        val intent = Intent(this, RequestInfoview::class.java)
+        val intent = Intent(this, SellInfoView::class.java)
         intent.putExtra("key",clickedItem.name)
         startActivity(intent)
     }
