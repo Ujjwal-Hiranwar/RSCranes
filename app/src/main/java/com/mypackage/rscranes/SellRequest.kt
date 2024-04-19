@@ -40,7 +40,7 @@ class SellRequest : AppCompatActivity(), SellRentAdapter.OnItemClickListener,
         }
         auth = FirebaseAuth.getInstance()
         db = FirebaseDatabase.getInstance()
-        databaseReference = db.reference.child("Rent Request")
+        databaseReference = db.reference.child("Sell Request")
         rv = findViewById(R.id.recyclerViewRequestSell)
 
         databaseReference.addValueEventListener(object : ValueEventListener {

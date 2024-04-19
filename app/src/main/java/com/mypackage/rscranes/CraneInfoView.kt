@@ -87,7 +87,7 @@ class CraneInfoView : AppCompatActivity() {
             if (binding.cranestatus.text.toString().lowercase() == "rent") {
                 startActivity(Intent(this@CraneInfoView, CraneforRent::class.java))
             } else if (binding.cranestatus.text.toString().lowercase() == "sell") {
-
+                startActivity(Intent(this@CraneInfoView,SellRequest::class.java))
             }
         }
     }

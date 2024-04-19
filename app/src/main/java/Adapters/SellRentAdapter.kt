@@ -8,7 +8,7 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.mypackage.rscranes.R
-import com.mypackage.rscranes.SellRentRecycler
+import com.mypackage.rscranes.RentRequest
 
 class SellRentAdapter(private val context: Context, private val  rentList: ArrayList<RentRequests>):
     RecyclerView.Adapter<SellRentAdapter.ViewHolder>() {
@@ -17,7 +17,7 @@ class SellRentAdapter(private val context: Context, private val  rentList: Array
     interface OnItemClickListener {
         fun onItemClick(position: Int)
     }
-    fun setOnItemClickListener(listener: SellRentRecycler) {
+    fun setOnItemClickListener(listener: RentRequest) {
         myListener = listener
     }
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView), View.OnClickListener {

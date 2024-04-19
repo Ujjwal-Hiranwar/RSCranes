@@ -18,7 +18,6 @@ import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.navigation.NavigationView
-import com.google.android.material.navigation.NavigationView.OnNavigationItemSelectedListener
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.ValueEventListener
@@ -96,8 +95,12 @@ class AdminHomeActivity : AppCompatActivity(), CraneAdapter.OnItemClickListener,
                   startActivity(intent)
                 finish()
             }
-            R.id.nav_request -> {
-                val intent = Intent(this, SellRentRecycler::class.java)
+            R.id.rent_request -> {
+                val intent = Intent(this, RentRequest::class.java)
+                startActivity(intent)
+            }
+            R.id.sell_request -> {
+                val intent = Intent(this, SellRequest::class.java)
                 startActivity(intent)
             }
         }

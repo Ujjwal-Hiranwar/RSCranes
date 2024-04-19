@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#E6D7AA"
-    tools:context=".SellRentRecycler">
+    tools:context=".RentRequest">
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerViewRequest"

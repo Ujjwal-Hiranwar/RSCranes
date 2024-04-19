@@ -25,7 +25,7 @@
             android:name=".RequestInfoview"
             android:exported="false" />
         <activity
-            android:name=".SellRentRecycler"
+            android:name=".RentRequest"
             android:exported="false" />
         <activity
             android:name=".AdminRequestActivity"

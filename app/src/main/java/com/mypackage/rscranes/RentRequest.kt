@@ -17,7 +17,7 @@ import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 
-class SellRentRecycler : AppCompatActivity(), SellRentAdapter.OnItemClickListener,
+class RentRequest : AppCompatActivity(), SellRentAdapter.OnItemClickListener,
     SellAdapter.OnItemClickListener {
     private lateinit var db: FirebaseDatabase
     private lateinit var databaseReference: DatabaseReference
@@ -43,11 +43,11 @@ class SellRentRecycler : AppCompatActivity(), SellRentAdapter.OnItemClickListene
                         val data = snapshot.getValue(RentRequests::class.java)
                         data?.let { List.add(it) }  // Add only non-null crane objects
                     }
-                    rv.layoutManager = LinearLayoutManager(this@SellRentRecycler)
+                    rv.layoutManager = LinearLayoutManager(this@RentRequest)
 
-                    adapter = SellRentAdapter(this@SellRentRecycler, List)
+                    adapter = SellRentAdapter(this@RentRequest, List)
                     rv.adapter = adapter
-                    adapter.setOnItemClickListener(this@SellRentRecycler)
+                    adapter.setOnItemClickListener(this@RentRequest)
                 }
             }
 
