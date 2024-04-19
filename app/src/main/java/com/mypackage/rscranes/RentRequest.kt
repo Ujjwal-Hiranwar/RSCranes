@@ -1,15 +1,13 @@
 package com.mypackage.rscranes
 
+import Adapters.SellAdapter
 import Adapters.SellRentAdapter
 import Models.RentRequests
 import android.content.ContentValues
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
-import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.auth.FirebaseAuth
@@ -19,7 +17,8 @@ import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 
-class SellRentRecycler : AppCompatActivity(), SellRentAdapter.OnItemClickListener {
+class RentRequest : AppCompatActivity(), SellRentAdapter.OnItemClickListener,
+    SellAdapter.OnItemClickListener {
     private lateinit var db: FirebaseDatabase
     private lateinit var databaseReference: DatabaseReference
     private val List = ArrayList<RentRequests>()
@@ -28,7 +27,7 @@ class SellRentRecycler : AppCompatActivity(), SellRentAdapter.OnItemClickListene
     private lateinit var rv: RecyclerView
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_sell_rent_recycler)
+        setContentView(R.layout.activity_rent_request)
         auth = FirebaseAuth.getInstance()
         db = FirebaseDatabase.getInstance()
         databaseReference = db.reference.child("Rent Request")
@@ -44,11 +43,11 @@ class SellRentRecycler : AppCompatActivity(), SellRentAdapter.OnItemClickListene
                         val data = snapshot.getValue(RentRequests::class.java)
                         data?.let { List.add(it) }  // Add only non-null crane objects
                     }
-                    rv.layoutManager = LinearLayoutManager(this@SellRentRecycler)
+                    rv.layoutManager = LinearLayoutManager(this@RentRequest)
 
-                    adapter = SellRentAdapter(this@SellRentRecycler, List)
+                    adapter = SellRentAdapter(this@RentRequest, List)
                     rv.adapter = adapter
-                    adapter.setOnItemClickListener(this@SellRentRecycler)
+                    adapter.setOnItemClickListener(this@RentRequest)
                 }
             }
 

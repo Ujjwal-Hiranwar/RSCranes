@@ -8,16 +8,16 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.mypackage.rscranes.R
-import com.mypackage.rscranes.RentRequest
+import com.mypackage.rscranes.SellRequest
 
-class SellRentAdapter(private val context: Context, private val  rentList: ArrayList<RentRequests>):
-    RecyclerView.Adapter<SellRentAdapter.ViewHolder>() {
+class SellAdapter(private val context: Context, private val  rentList: ArrayList<RentRequests>):
+    RecyclerView.Adapter<SellAdapter.ViewHolder>() {
 
     private lateinit var myListener: OnItemClickListener
     interface OnItemClickListener {
         fun onItemClick(position: Int)
     }
-    fun setOnItemClickListener(listener: RentRequest) {
+    fun setOnItemClickListener(listener: SellRequest) {
         myListener = listener
     }
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView), View.OnClickListener {
@@ -35,21 +35,23 @@ class SellRentAdapter(private val context: Context, private val  rentList: Array
             }
         }
     }
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SellRentAdapter.ViewHolder {
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.request_item_view, parent, false)
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
+        val view = LayoutInflater.from(parent.context).inflate(R.layout.sell_view, parent, false)
         return ViewHolder(view)
     }
 
-    override fun onBindViewHolder(holder: SellRentAdapter.ViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val currentItem = rentList[position]
         holder.rentalName.text = currentItem.name
-        holder.status.text = "RENT"
+        holder.status.text = "SELL"
         holder.checkBtn.setOnClickListener {
             myListener.onItemClick(position)
-        }
+    }
     }
 
     override fun getItemCount(): Int {
         return rentList.size
     }
+
+
 }

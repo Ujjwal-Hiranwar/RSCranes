@@ -7,6 +7,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
+import com.google.firebase.auth.UserProfileChangeRequest
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.DatabaseReference
@@ -59,15 +60,34 @@ class SignUpActivity : AppCompatActivity() {
             auth.createUserWithEmailAndPassword(email, password)
                 .addOnCompleteListener(this) { task ->
                     if (task.isSuccessful) {
-                        // Registration successful, save user data to the database
+                        // Registration successful, send email verification link
+                        val user = auth.currentUser
+                        user?.sendEmailVerification()
+                            ?.addOnCompleteListener(this) { sendVerificationTask ->
+                                if (sendVerificationTask.isSuccessful) {
+                                    Toast.makeText(
+                                        this@SignUpActivity,
+                                        "Verification email sent",
+                                        Toast.LENGTH_SHORT
+                                    ).show()
+                                    startActivity(Intent(this@SignUpActivity,LoginAsAdmin::class.java))
+
+                                } else {
+                                    Toast.makeText(
+                                        this@SignUpActivity,
+                                        "Failed to send verification email: ${sendVerificationTask.exception?.message}",
+                                        Toast.LENGTH_SHORT
+                                    ).show()
+                                }
+                            }
+
+                        // Save user data to the database
                         val userId = auth.currentUser?.uid
                         val newUser = Users(email, phone)
                         userId?.let {
                             db.reference.child("Admins").child(it).setValue(newUser)
                         }
                         Toast.makeText(this, "Registration Successful", Toast.LENGTH_SHORT).show()
-                        val intent = Intent(this@SignUpActivity, AdminHomeActivity::class.java)
-                        startActivity(intent)
                     } else {
                         // Registration failed, display error message
                         Toast.makeText(
@@ -87,14 +107,33 @@ class SignUpActivity : AppCompatActivity() {
             auth.createUserWithEmailAndPassword(email, password)
                 .addOnCompleteListener(this) { task ->
                     if (task.isSuccessful) {
-                        // Registration successful, save user data to the database
+                        // Registration successful, send email verification link
+                        val user = auth.currentUser
+                        user?.sendEmailVerification()
+                            ?.addOnCompleteListener(this) { sendVerificationTask ->
+                                if (sendVerificationTask.isSuccessful) {
+                                    Toast.makeText(
+                                        this@SignUpActivity,
+                                        "Verification email sent",
+                                        Toast.LENGTH_SHORT
+                                    ).show()
+                                    startActivity(Intent(this@SignUpActivity,LogInActivity::class.java))
+                                } else {
+                                    Toast.makeText(
+                                        this@SignUpActivity,
+                                        "Failed to send verification email: ${sendVerificationTask.exception?.message}",
+                                        Toast.LENGTH_SHORT
+                                    ).show()
+                                }
+                            }
+
+                        // Save user data to the database
                         val userId = auth.currentUser?.uid
                         val newUser = Users(email, phone)
                         userId?.let {
                             db.reference.child("Users").child(it).setValue(newUser)
                         }
                         Toast.makeText(this, "Registration Successful", Toast.LENGTH_SHORT).show()
-                        startActivity(Intent(this@SignUpActivity, MainActivity::class.java))
                     } else {
                         // Registration failed, display error message
                         Toast.makeText(
@@ -117,14 +156,24 @@ class SignUpActivity : AppCompatActivity() {
                         adminUid?.let { adminUidList.add(it) } // Add only non-null UID
                     }
 
-                    if (adminUidList.contains(currentUser.uid)) {
-                        // Current user is an admin, open AdminHomeActivity
+                    if (adminUidList.contains(
+                            currentUser.uid
+                        ) && currentUser.isEmailVerified
+                    ) {
+                        // Current user is an admin and email is verified, open AdminHomeActivity
                         val intent = Intent(this@SignUpActivity, AdminHomeActivity::class.java)
                         startActivity(intent)
-                    } else {
-                        // Current user is not an admin, open MainActivity
+                    } else if (currentUser.isEmailVerified) {
+                        // Current user is not an admin but email is verified, open MainActivity
                         val intent = Intent(this@SignUpActivity, MainActivity::class.java)
                         startActivity(intent)
+                    } else {
+                        // Email is not verified, display error message
+                        Toast.makeText(
+                            this@SignUpActivity,
+                            "Please verify your email address",
+                            Toast.LENGTH_SHORT
+                        ).show()
                     }
                     finish()
                 }

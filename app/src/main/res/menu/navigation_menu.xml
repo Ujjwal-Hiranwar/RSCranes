@@ -3,14 +3,20 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:ignore="HardcodedText"
     tools:showIn="navigation_view">
-  <group>
+    <group>
 
-           <item android:id="@+id/nav_request"
-               android:title="Request" />
+        <item
+            android:id="@+id/rent_request"
+            android:title="Rent Request" />
 
-           <item android:id="@+id/nav_logout"
-               android:title="Logout" />
+        <item
+            android:id="@+id/sell_request"
+            android:title="Sell Request" />
 
-  </group>
+        <item
+            android:id="@+id/nav_logout"
+            android:title="Logout" />
+
+    </group>
 
 </menu>
