@@ -27,7 +27,7 @@
     android:layout_height="wrap_content"
     android:background="@drawable/roundstyle"
     android:backgroundTint="#E3E0C9"
-    android:layout_margin="43dp"
+    android:layout_margin="44dp"
     android:layout_marginTop="30dp">
         <LinearLayout
             android:layout_width="match_parent"
