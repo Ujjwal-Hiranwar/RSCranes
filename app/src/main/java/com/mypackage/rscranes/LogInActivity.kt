@@ -10,6 +10,7 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseAuthInvalidUserException
 
 class LogInActivity : AppCompatActivity() {
+
     private lateinit var binding: ActivityLogInBinding
     private lateinit var auth: FirebaseAuth
 
@@ -21,7 +22,6 @@ class LogInActivity : AppCompatActivity() {
         binding.login.setOnClickListener {
             val email = binding.email.text.toString()
             val password = binding.password.text.toString()
-
 
             if (email.isNotEmpty() && password.isNotEmpty()) {
                 loginUser(email, password)
@@ -35,6 +35,11 @@ class LogInActivity : AppCompatActivity() {
             startActivity(intent)
         }
 
+        binding.Adminlogin.setOnClickListener {
+            val intent = Intent(this@LogInActivity, LoginAsAdmin::class.java)
+            startActivity(intent)
+        }
+
         binding.forgot.setOnClickListener {
             val intent = Intent(this@LogInActivity, ForgotActivity::class.java)
             startActivity(intent)
@@ -45,10 +50,33 @@ class LogInActivity : AppCompatActivity() {
         auth.signInWithEmailAndPassword(email, password)
             .addOnCompleteListener(this) { task ->
                 if (task.isSuccessful) {
-                    // User logged in successfully
-                    Toast.makeText(this, "Login Successful", Toast.LENGTH_SHORT).show()
-                    val intent = Intent(this@LogInActivity, MainActivity::class.java)
-                    startActivity(intent)
+                    // Check if the user or admin is verified
+                    val currentUser = auth.currentUser
+                    if (currentUser != null && !currentUser.isEmailVerified) {
+                        // User or admin is not verified, display error message
+                        Toast.makeText(this, "Please verify your email address", Toast.LENGTH_SHORT).show()
+                        currentUser.sendEmailVerification()
+                            .addOnCompleteListener(this) { sendVerificationTask ->
+                                if (sendVerificationTask.isSuccessful) {
+                                    Toast.makeText(
+                                        this,
+                                        "Verification email sent",
+                                        Toast.LENGTH_SHORT
+                                    ).show()
+                                } else {
+                                    Toast.makeText(
+                                        this,
+                                        "Failed to send verification email: ${sendVerificationTask.exception?.message}",
+                                        Toast.LENGTH_SHORT
+                                    ).show()
+                                }
+                            }
+                    } else {
+                        // User or admin is verified, open MainActivity
+                        Toast.makeText(this, "Login Successful", Toast.LENGTH_SHORT).show()
+                        val intent = Intent(this@LogInActivity, MainActivity::class.java)
+                        startActivity(intent)
+                    }
                 } else {
                     // Check if the user does not exist
                     if (task.exception is FirebaseAuthInvalidUserException) {
