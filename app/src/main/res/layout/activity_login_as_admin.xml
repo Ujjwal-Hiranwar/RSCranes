@@ -107,7 +107,7 @@
 
                 <Button
                     android:id="@+id/adminlogin"
-                    android:layout_width="135dp"
+                    android:layout_width="136dp"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:layout_marginTop="30dp"
