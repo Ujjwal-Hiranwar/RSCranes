@@ -7,7 +7,10 @@ import android.content.ContentValues
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
+import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.ViewCompat
+import androidx.core.view.WindowInsetsCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.auth.FirebaseAuth
@@ -17,21 +20,28 @@ import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 
-class SellRentRecycler : AppCompatActivity(), SellRentAdapter.OnItemClickListener,
+class SellRequest : AppCompatActivity(), SellRentAdapter.OnItemClickListener,
     SellAdapter.OnItemClickListener {
     private lateinit var db: FirebaseDatabase
     private lateinit var databaseReference: DatabaseReference
     private val List = ArrayList<RentRequests>()
     private lateinit var auth: FirebaseAuth
-    private lateinit var adapter: SellRentAdapter
+    private lateinit var adapter: SellAdapter
     private lateinit var rv: RecyclerView
     override fun onCreate(savedInstanceState: Bundle?) {
+
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_sell_rent_recycler)
+        enableEdgeToEdge()
+        setContentView(R.layout.activity_sell_request)
+        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
+            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
+            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
+            insets
+        }
         auth = FirebaseAuth.getInstance()
         db = FirebaseDatabase.getInstance()
         databaseReference = db.reference.child("Rent Request")
-        rv = findViewById(R.id.recyclerViewRequest)
+        rv = findViewById(R.id.recyclerViewRequestSell)
 
         databaseReference.addValueEventListener(object : ValueEventListener {
 
@@ -43,11 +53,11 @@ class SellRentRecycler : AppCompatActivity(), SellRentAdapter.OnItemClickListene
                         val data = snapshot.getValue(RentRequests::class.java)
                         data?.let { List.add(it) }  // Add only non-null crane objects
                     }
-                    rv.layoutManager = LinearLayoutManager(this@SellRentRecycler)
+                    rv.layoutManager = LinearLayoutManager(this@SellRequest)
 
-                    adapter = SellRentAdapter(this@SellRentRecycler, List)
+                    adapter = SellAdapter(this@SellRequest, List)
                     rv.adapter = adapter
-                    adapter.setOnItemClickListener(this@SellRentRecycler)
+                    adapter.setOnItemClickListener(this@SellRequest)
                 }
             }
 

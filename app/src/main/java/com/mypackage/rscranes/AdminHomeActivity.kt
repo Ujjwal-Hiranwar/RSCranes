@@ -93,7 +93,7 @@ class AdminHomeActivity : AppCompatActivity(), CraneAdapter.OnItemClickListener,
             R.id.nav_logout -> {
                 auth.signOut()
                 val intent = Intent(this, SignUpActivity::class.java)
-                startActivity(intent)
+                  startActivity(intent)
                 finish()
             }
             R.id.nav_request -> {
