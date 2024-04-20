@@ -30,7 +30,6 @@ class SplashScreenActivity : AppCompatActivity() {
 
         // Check if the user is already signed in
         val currentUser = auth.currentUser?.uid
-        Toast.makeText(this@SplashScreenActivity, currentUser.toString(), Toast.LENGTH_LONG).show()
 
 
         Handler(Looper.getMainLooper()).postDelayed({
@@ -59,7 +58,6 @@ class SplashScreenActivity : AppCompatActivity() {
                     }
 
                     val isAdmin = adminUidList.contains(currentUser)
-                    Toast.makeText(this@SplashScreenActivity, isAdmin.toString(), Toast.LENGTH_SHORT).show()
                     routeUserBasedOnRole(isAdmin)
 
 

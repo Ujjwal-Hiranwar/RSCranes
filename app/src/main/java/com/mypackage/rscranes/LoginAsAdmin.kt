@@ -31,9 +31,12 @@ class LoginAsAdmin : AppCompatActivity() {
             }
         }
 
-        binding.userlogin.setOnClickListener {
-            val intent = Intent(this@LoginAsAdmin, LogInActivity::class.java)
-            startActivity(intent)
+//        binding.userlogin.setOnClickListener {
+//            val intent = Intent(this@LoginAsAdmin, LogInActivity::class.java)
+//            startActivity(intent)
+//        }
+        binding.forgot.setOnClickListener {
+            resetpassword()
         }
     }
     private fun resetpassword() {
