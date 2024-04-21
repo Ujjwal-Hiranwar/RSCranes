@@ -30,6 +30,7 @@
             android:layout_margin="15dp"
             android:background="@drawable/roundstyle"
             android:backgroundTint="#E3E0C9"
+            android:textColor="@color/black"
             android:orientation="vertical"
             android:padding="20dp">
 
@@ -44,6 +45,7 @@
                     android:layout_height="wrap_content"
                     android:text="Crane Name:"
                     android:textSize="18sp"
+                    android:textColor="@color/black"
                     android:textStyle="bold"
                     tools:ignore="HardcodedText" />
 
@@ -53,6 +55,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="30dp"
                     android:text="Crane Name"
+                    android:textColor="@color/black"
                     android:textSize="16sp"
                     tools:ignore="HardcodedText" />
             </LinearLayout>
@@ -68,6 +71,7 @@
                     android:layout_height="wrap_content"
                     android:text="Capacity:"
                     android:textSize="18sp"
+                    android:textColor="@color/black"
                     android:textStyle="bold"
                     tools:ignore="HardcodedText" />
 
@@ -77,6 +81,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="30dp"
                     android:text="Capacity"
+                    android:textColor="@color/black"
                     android:textSize="16sp"
                     tools:ignore="HardcodedText" />
             </LinearLayout>
@@ -93,6 +98,7 @@
                     android:text="Phone no:"
                     android:textSize="18sp"
                     android:textStyle="bold"
+                    android:textColor="@color/black"
                     tools:ignore="HardcodedText" />
 
                 <TextView
@@ -101,6 +107,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="30dp"
                     android:text="Phone Number"
+                    android:textColor="@color/black"
                     android:textSize="16sp"
                     tools:ignore="HardcodedText" />
             </LinearLayout>
@@ -118,6 +125,7 @@
                     android:text="Duration:"
                     android:textSize="18sp"
                     android:textStyle="bold"
+                    android:textColor="@color/black"
                     tools:ignore="HardcodedText" />
 
                 <TextView
@@ -126,6 +134,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="30dp"
                     android:text="Duration"
+                    android:textColor="@color/black"
                     android:textSize="16sp"
                     tools:ignore="HardcodedText" />
             </LinearLayout>
@@ -142,6 +151,7 @@
                     android:text="Details:"
                     android:textSize="18sp"
                     android:textStyle="bold"
+                    android:textColor="@color/black"
                     tools:ignore="HardcodedText" />
 
                 <TextView

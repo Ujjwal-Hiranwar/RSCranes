@@ -44,6 +44,7 @@
                     android:layout_height="wrap_content"
                     android:text="Crane Name:"
                     android:textSize="18sp"
+                    android:textColor="@color/black"
                     android:textStyle="bold"
                     tools:ignore="HardcodedText" />
 
@@ -53,6 +54,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="30dp"
                     android:text="Crane Name"
+                    android:textColor="@color/black"
                     android:textSize="16sp"
                     tools:ignore="HardcodedText" />
             </LinearLayout>
@@ -68,6 +70,7 @@
                     android:layout_height="wrap_content"
                     android:text="Capacity:"
                     android:textSize="18sp"
+                    android:textColor="@color/black"
                     android:textStyle="bold"
                     tools:ignore="HardcodedText" />
 
@@ -78,6 +81,7 @@
                     android:layout_marginStart="30dp"
                     android:text="Capacity"
                     android:textSize="16sp"
+                    android:textColor="@color/black"
                     tools:ignore="HardcodedText" />
             </LinearLayout>
 
@@ -92,6 +96,7 @@
                     android:layout_height="wrap_content"
                     android:text="Phone no:"
                     android:textSize="18sp"
+                    android:textColor="@color/black"
                     android:textStyle="bold"
                     tools:ignore="HardcodedText" />
 
@@ -101,6 +106,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="30dp"
                     android:text="Phone Number"
+                    android:textColor="@color/black"
                     android:textSize="16sp"
                     tools:ignore="HardcodedText" />
             </LinearLayout>
@@ -117,6 +123,7 @@
                     android:layout_height="wrap_content"
                     android:text="Duration:"
                     android:textSize="18sp"
+                    android:textColor="@color/black"
                     android:textStyle="bold"
                     tools:ignore="HardcodedText" />
 
@@ -126,6 +133,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="30dp"
                     android:text="Duration"
+                    android:textColor="@color/black"
                     android:textSize="16sp"
                     tools:ignore="HardcodedText" />
             </LinearLayout>
@@ -141,6 +149,7 @@
                     android:layout_height="wrap_content"
                     android:text="Details:"
                     android:textSize="18sp"
+                    android:textColor="@color/black"
                     android:textStyle="bold"
                     tools:ignore="HardcodedText" />
 
@@ -150,6 +159,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="30dp"
                     android:text="Details"
+                    android:textColor="@color/black"
                     android:textSize="16sp"
                     tools:ignore="HardcodedText" />
             </LinearLayout>

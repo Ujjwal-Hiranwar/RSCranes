@@ -80,7 +80,8 @@
                 android:layout_width="200dp"
                 android:layout_height="wrap_content"
                 android:backgroundTint="#A4151515"
-                android:text="  Sign Up as User " />
+                android:text="  Sign Up as User "
+                android:textColor="@color/white"/>
 
             <Button
                 android:id="@+id/Adminsignup"
@@ -88,7 +89,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
                 android:backgroundTint="#A4151515"
-                android:text="  Sign Up as Admin" />
+                android:text="  Sign Up as Admin"
+                android:textColor="@color/white"/>
 
         </LinearLayout>
 

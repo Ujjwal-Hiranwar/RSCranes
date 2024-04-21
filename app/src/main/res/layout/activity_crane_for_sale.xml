@@ -17,7 +17,6 @@
         <ScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-
             >
 
             <LinearLayout
@@ -34,16 +33,19 @@
                     android:id="@+id/textView"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="20dp"
+                    android:layout_marginTop="35dp"
+                    android:layout_marginBottom="15dp"
                     android:fontFamily="sans-serif"
                     android:gravity="center"
                     android:shadowColor="@color/black"
-                    android:text="Crane for SAlE"
+                    android:text="Crane for SALE"
                     android:textSize="30dp"
-                    android:textStyle="bold" />
+                    android:textColor="@color/black"
+                    android:textStyle="bold"
+                    />
 
                 <androidx.cardview.widget.CardView
-                    android:layout_width="350dp"
+                    android:layout_width="310dp"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:layout_marginTop="20dp"
@@ -62,6 +64,7 @@
                         android:layout_marginBottom="20dp"
                         android:background="@drawable/roundstyle"
                         android:orientation="vertical"
+                        android:paddingVertical="10dp"
                         android:paddingHorizontal="5dp">
 
                         <LinearLayout
@@ -77,6 +80,7 @@
                                 android:layout_marginLeft="12dp"
                                 android:text="Crane Capacity * :"
                                 android:textSize="20dp"
+                                android:textColor="@color/black"
                                 android:textStyle="bold" />
 
                             <EditText
@@ -89,6 +93,7 @@
                                 android:backgroundTint="@color/white"
                                 android:gravity="center"
                                 android:hint="Crane Capacity"
+                                android:textColor="@color/black"
                                 android:padding="8dp"
                                 android:textSize="20dp" />
 
@@ -107,6 +112,7 @@
                                 android:padding="4dp"
                                 android:text="Name/ Company Name * :"
                                 android:textSize="20dp"
+                                android:textColor="@color/black"
                                 android:textStyle="bold" />
 
                             <EditText
@@ -120,6 +126,7 @@
                                 android:gravity="center"
                                 android:hint="Name"
                                 android:padding="8dp"
+                                android:textColor="@color/black"
                                 android:textSize="20dp" />
 
                         </LinearLayout>
@@ -137,6 +144,7 @@
                                 android:padding="4dp"
                                 android:text="Telephone * :"
                                 android:textSize="20dp"
+                                android:textColor="@color/black"
                                 android:textStyle="bold" />
 
                             <EditText
@@ -149,6 +157,7 @@
                                 android:gravity="center"
                                 android:hint="Telephone number"
                                 android:padding="10dp"
+                                android:textColor="@color/black"
                                 android:textSize="20dp" />
 
 
@@ -167,6 +176,7 @@
                                 android:padding="4dp"
                                 android:text="Rental Duration * :"
                                 android:textSize="20dp"
+                                android:textColor="@color/black"
                                 android:textStyle="bold" />
 
                             <EditText
@@ -179,6 +189,7 @@
                                 android:gravity="center"
                                 android:hint="rental duration"
                                 android:padding="10dp"
+                                android:textColor="@color/black"
                                 android:textSize="20dp" />
                         </LinearLayout>
 
@@ -197,6 +208,7 @@
                                 android:text="Other Details : "
                                 android:textSize="20sp"
                                 android:textStyle="bold"
+                                android:textColor="@color/black"
                                 tools:ignore="RtlHardcoded" />
 
                             <EditText
@@ -210,6 +222,7 @@
                                 android:gravity="center"
                                 android:hint="Other Details "
                                 android:padding="10dp"
+                                android:textColor="@color/black"
                                 android:textSize="20dp" />
 
                         </LinearLayout>
