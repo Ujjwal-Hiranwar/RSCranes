@@ -5,6 +5,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import com.google.firebase.auth.FirebaseAuth
@@ -14,6 +15,7 @@ import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 import com.mypackage.rscranes.SplashScreenActivity.adminUser.isAdmin
+import com.mypackage.rscranes.databinding.ActivityAdminAddCraneBinding
 import com.mypackage.rscranes.databinding.ActivityCraneInfoViewBinding
 
 class CraneInfoView : AppCompatActivity() {
@@ -35,66 +37,16 @@ class CraneInfoView : AppCompatActivity() {
         if (isAdmin) {
             binding.edit.visibility = View.VISIBLE
             binding.editImg.visibility = View.VISIBLE
-
+        }
+        binding.edit.setOnClickListener {
+          val intent = Intent(this,Edit_Crane_Info::class.java)
+            intent.putExtra("model_name_key",binding.cranemodelname.toString())
+            startActivity(intent)
         }
         binding.back.setOnClickListener {
             finish()
         }
-        databaseReference.addValueEventListener(object : ValueEventListener {
 
-            override fun onDataChange(snapshot: DataSnapshot) {
-                if (snapshot.exists()) {
-
-                    var i = 0
-                    for (snapshot in snapshot.children) {
-                        val crane = snapshot.getValue()
-                        Log.d("todo", crane.toString())
-                        when (i) {
-                            0 -> {
-                                binding.craneboomlength.text = crane.toString()
-                                i++
-                            }
-                            1 -> {
-                                binding.cranecapacity.text = crane.toString()
-                                i++
-                            }
-                            2 -> {
-                                i++
-                            }
-                            3 -> {
-                                binding.craneflyjib.text = crane.toString()
-                                i++
-                            }
-                            4 -> {
-                                i++
-                            }
-                            5 -> {
-                                binding.cranelocation.text = crane.toString()
-                                i++
-                            }
-                            6 -> {
-                                binding.cranemodelname.text = crane.toString()
-                                i++
-                            }
-                            7 -> {
-                                binding.cranestatus.text = crane.toString()
-                                i++
-                            }
-                            else -> {
-                                binding.sellOrRentbtn.text = crane.toString()
-                                i++
-                            }
-                        }
-
-
-                    }
-                }
-            }
-
-            override fun onCancelled(error: DatabaseError) {
-                Log.w(ContentValues.TAG, "Failed to read value.", error.toException())
-            }
-        })
 
         binding.sellOrRentbtn.setOnClickListener {
 

@@ -23,6 +23,7 @@ import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.ValueEventListener
+import com.google.protobuf.NullValue
 import com.mypackage.rscranes.SplashScreenActivity.adminUser.isAdmin
 import com.mypackage.rscranes.databinding.ActivityAdminAddCraneBinding
 
@@ -69,6 +70,7 @@ class AdminAddCrane : AppCompatActivity() {
                 .start(requestCode)
 
         }
+
 
         binding.addcrane.setOnClickListener {
             val model = binding.editcranemodel.text.trim().toString()
