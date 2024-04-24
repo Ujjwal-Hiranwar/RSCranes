@@ -27,6 +27,9 @@ class RequestInfoview : AppCompatActivity() {
         val receivedValue = intent.getStringExtra("key")
         databaseReference = db.reference.child("Rent Request").child(receivedValue.toString())
 
+        binding.back.setOnClickListener {
+            finish()
+        }
         databaseReference.addValueEventListener(object : ValueEventListener {
 
             override fun onDataChange(snapshot: DataSnapshot) {

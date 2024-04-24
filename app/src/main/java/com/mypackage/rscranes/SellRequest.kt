@@ -11,6 +11,7 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.auth.FirebaseAuth
@@ -19,9 +20,12 @@ import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
+import com.mypackage.rscranes.databinding.ActivitySellRequestBinding
 
 class SellRequest : AppCompatActivity(), SellRentAdapter.OnItemClickListener,
     SellAdapter.OnItemClickListener {
+    private lateinit var binding: ActivitySellRequestBinding
+
     private lateinit var db: FirebaseDatabase
     private lateinit var databaseReference: DatabaseReference
     private val List = ArrayList<RentRequests>()
@@ -32,7 +36,7 @@ class SellRequest : AppCompatActivity(), SellRentAdapter.OnItemClickListener,
 
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
-        setContentView(R.layout.activity_sell_request)
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_sell_request)
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
@@ -43,6 +47,9 @@ class SellRequest : AppCompatActivity(), SellRentAdapter.OnItemClickListener,
         databaseReference = db.reference.child("Sell Request")
         rv = findViewById(R.id.recyclerViewRequestSell)
 
+        binding.back.setOnClickListener {
+            finish()
+        }
         databaseReference.addValueEventListener(object : ValueEventListener {
 
             override fun onDataChange(snapshot: DataSnapshot) {

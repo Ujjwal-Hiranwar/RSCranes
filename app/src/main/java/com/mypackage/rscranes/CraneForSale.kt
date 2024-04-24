@@ -17,10 +17,11 @@ import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
-import com.mypackage.rscranes.databinding.ActivityCraneforRentBinding
+import com.mypackage.rscranes.SplashScreenActivity.adminUser.isAdmin
+import com.mypackage.rscranes.databinding.ActivityCraneForSaleBinding
 
 class CraneForSale : AppCompatActivity() {
-    private lateinit var binding: ActivityCraneforRentBinding
+    private lateinit var binding: ActivityCraneForSaleBinding
     private lateinit var db: FirebaseDatabase
     private lateinit var databaseReference: DatabaseReference
     private val adminUidList = ArrayList<String>()
@@ -28,18 +29,19 @@ class CraneForSale : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
-        setContentView(R.layout.activity_crane_for_sale)
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_crane_for_sale)
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
-        binding = DataBindingUtil.setContentView(this, R.layout.activity_cranefor_rent)
         auth = FirebaseAuth.getInstance()
         db = FirebaseDatabase.getInstance()
         databaseReference = db.reference.child("Sell Request")
-        val currentUser = auth.currentUser?.uid
 
+        binding.back.setOnClickListener {
+            finish()
+        }
         binding.rentRequest.setOnClickListener {
             val capacity = binding.cranecapacity.text.trim().toString()
             val name = binding.name.text.trim().toString()
@@ -51,7 +53,22 @@ class CraneForSale : AppCompatActivity() {
                 val RentRequests = RentRequests(capacity,name,number,duration,other)
                 databaseReference.child(name).setValue(RentRequests).addOnCompleteListener {
                     Toast.makeText(this, "Request Sent Successfully", Toast.LENGTH_SHORT).show()
-                    checkUser(currentUser!!)
+//                    checkUser(currentUser!!)
+
+//                    SplashScreenActivity.adminUser.checkAdmin(isAdmin)
+                    Toast.makeText(this@CraneForSale, "$isAdmin", Toast.LENGTH_SHORT).show()
+                    if (isAdmin) {
+                        startActivity(Intent(this@CraneForSale, AdminHomeActivity::class.java))
+                    }
+                    else {
+                        Toast.makeText(
+                            this@CraneForSale,
+                            "Something went wrong in CraneforRent",
+                            Toast.LENGTH_LONG
+                        ).show()
+                        startActivity(Intent(this@CraneForSale, MainActivity::class.java))
+
+                    }
                 }
 
             } else {

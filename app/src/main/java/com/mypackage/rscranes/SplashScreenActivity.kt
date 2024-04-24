@@ -4,6 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
+import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.auth.FirebaseAuth
@@ -58,6 +59,8 @@ class SplashScreenActivity : AppCompatActivity() {
                     }
 
                     val isAdmin = adminUidList.contains(currentUser)
+                    adminUser.checkAdmin(isAdmin)
+                    Toast.makeText(this@SplashScreenActivity, "${adminUser.isAdmin}", Toast.LENGTH_SHORT).show()
                     routeUserBasedOnRole(isAdmin)
 
 
@@ -75,6 +78,7 @@ class SplashScreenActivity : AppCompatActivity() {
         })
     }
     private fun routeUserBasedOnRole(isAdmin: Boolean) {
+
         val intent = if (isAdmin) {
             Intent(this, AdminHomeActivity::class.java).also {
                 it.putExtra("isAdmin", true) // Passing the isAdmin value
@@ -86,6 +90,13 @@ class SplashScreenActivity : AppCompatActivity() {
         finish() // Finish SplashScreenActivity after starting the next one
     }
 
+object adminUser {
+    var isAdmin : Boolean = false
+    fun checkAdmin(isAdmin: Boolean){
+        this.isAdmin = isAdmin
+        Log.d("user", this.isAdmin.toString())
+    }
 
+}
 
 }

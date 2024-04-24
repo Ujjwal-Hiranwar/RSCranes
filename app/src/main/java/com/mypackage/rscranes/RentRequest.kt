@@ -8,6 +8,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
+import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.auth.FirebaseAuth
@@ -16,9 +17,11 @@ import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
+import com.mypackage.rscranes.databinding.ActivityRentRequestBinding
 
 class RentRequest : AppCompatActivity(), SellRentAdapter.OnItemClickListener,
     SellAdapter.OnItemClickListener {
+        private lateinit var binding:ActivityRentRequestBinding
     private lateinit var db: FirebaseDatabase
     private lateinit var databaseReference: DatabaseReference
     private val List = ArrayList<RentRequests>()
@@ -27,12 +30,15 @@ class RentRequest : AppCompatActivity(), SellRentAdapter.OnItemClickListener,
     private lateinit var rv: RecyclerView
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_rent_request)
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_rent_request)
         auth = FirebaseAuth.getInstance()
         db = FirebaseDatabase.getInstance()
         databaseReference = db.reference.child("Rent Request")
         rv = findViewById(R.id.recyclerViewRequest)
 
+        binding.back.setOnClickListener {
+            finish()
+        }
         databaseReference.addValueEventListener(object : ValueEventListener {
 
             override fun onDataChange(snapshot: DataSnapshot) {

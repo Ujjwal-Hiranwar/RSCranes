@@ -30,6 +30,8 @@ class CraneAdapter(private val context: Context, private val craneList: ArrayLis
         val modelName: TextView = itemView.findViewById(R.id.mName)
         val img: ImageView = itemView.findViewById(R.id.crane_img)
         val checkBtn: Button = itemView.findViewById(R.id.checkNow)
+        val description : TextView = itemView.findViewById(R.id.des)
+
 
         init {
             itemView.setOnClickListener(this)
@@ -55,6 +57,7 @@ class CraneAdapter(private val context: Context, private val craneList: ArrayLis
         val currentItem = craneList[position]
         holder.modelName.text = currentItem.modelName
         Picasso.get().load(craneList[position].image).into(holder.img)
+        holder.description.text = currentItem.description
         holder.checkBtn.setOnClickListener {
             myListener.onItemClick(position)
         }

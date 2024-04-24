@@ -28,6 +28,9 @@ class SellInfoView : AppCompatActivity() {
         val receivedValue = intent.getStringExtra("key")
         databaseReference = db.reference.child("Sell Request").child(receivedValue.toString())
 
+        binding.back.setOnClickListener {
+            finish()
+        }
         databaseReference.addValueEventListener(object : ValueEventListener {
 
             override fun onDataChange(snapshot: DataSnapshot) {

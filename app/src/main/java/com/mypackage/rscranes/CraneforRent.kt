@@ -14,6 +14,7 @@ import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
+import com.mypackage.rscranes.SplashScreenActivity.adminUser.isAdmin
 import com.mypackage.rscranes.databinding.ActivityCraneforRentBinding
 
 class CraneforRent : AppCompatActivity() {
@@ -30,6 +31,9 @@ class CraneforRent : AppCompatActivity() {
         databaseReference = db.reference.child("Rent Request")
         val currentUser = auth.currentUser?.uid
 
+        binding.back.setOnClickListener {
+            finish()
+        }
         binding.rentRequest.setOnClickListener {
             val capacity = binding.cranecapacity.text.trim().toString()
             val name = binding.name.text.trim().toString()
@@ -41,8 +45,21 @@ class CraneforRent : AppCompatActivity() {
                 val RentRequests = RentRequests(capacity,name,number,duration,other)
                 databaseReference.child(name).setValue(RentRequests).addOnCompleteListener {
                     Toast.makeText(this, "Request Sent Successfully", Toast.LENGTH_SHORT).show()
-                    checkUser(currentUser!!)
+//                    checkUser(currentUser!!)
+                    if (isAdmin) {
+                        startActivity(Intent(this@CraneforRent, AdminHomeActivity::class.java))
+                    }
+                    else {
+                        Toast.makeText(
+                            this@CraneforRent,
+                            "Something went wrong in CraneforRent",
+                            Toast.LENGTH_LONG
+                        ).show()
+                        startActivity(Intent(this@CraneforRent, MainActivity::class.java))
+
+                    }
                 }
+
                 
             } else {
                 Toast.makeText(
@@ -70,18 +87,7 @@ class CraneforRent : AppCompatActivity() {
                     Toast.makeText(this@CraneforRent, isAdmin.toString(), Toast.LENGTH_SHORT)
                         .show()
 
-                    if (isAdmin) {
-                        startActivity(Intent(this@CraneforRent, AdminHomeActivity::class.java))
-                    }
-                    else {
-                        Toast.makeText(
-                            this@CraneforRent,
-                            "Something went wrong in CraneforRent",
-                            Toast.LENGTH_LONG
-                        ).show()
-                        startActivity(Intent(this@CraneforRent, MainActivity::class.java))
 
-                    }
                 }
             }
 

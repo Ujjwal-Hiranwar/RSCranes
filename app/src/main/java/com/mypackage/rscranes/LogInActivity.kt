@@ -20,8 +20,8 @@ class LogInActivity : AppCompatActivity() {
         auth = FirebaseAuth.getInstance()
 
         binding.login.setOnClickListener {
-            val email = binding.email.text.toString()
-            val password = binding.password.text.toString()
+            val email = binding.email.text.trim().toString()
+            val password = binding.password.text.trim().toString()
 
             if (email.isNotEmpty() && password.isNotEmpty()) {
                 loginUser(email, password)
@@ -46,7 +46,7 @@ class LogInActivity : AppCompatActivity() {
     }
 
     private fun resetpassword() {
-        val email = binding.email.text.toString().trim()
+        val email = binding.email.text.trim().toString()
         if (email.isNotEmpty()){
             auth.sendPasswordResetEmail(email)
                 .addOnCompleteListener { task->

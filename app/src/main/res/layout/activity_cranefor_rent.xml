@@ -12,7 +12,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="#E6D7AA"
-        tools:context=".CraneInfoView">
+        tools:context=".CraneforRent">
 
         <ScrollView
             android:layout_width="match_parent"
@@ -30,19 +30,34 @@
                 tools:ignore="ScrollViewSize">
 
 
-                <TextView
-                    android:id="@+id/textView"
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="40dp"
-                    android:layout_marginBottom="40dp"
-                    android:fontFamily="sans-serif"
-                    android:gravity="center"
-                    android:shadowColor="@color/black"
-                    android:text="Crane for Rent"
-                    android:textSize="30dp"
-                    android:textColor="@color/black"
-                    android:textStyle="bold" />
+                    android:orientation="horizontal"
+                    >
+
+                    <ImageView
+                        android:id="@+id/back"
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        android:src="@drawable/back"
+                        android:layout_margin="5dp"
+                        />
+                    <TextView
+                        android:id="@+id/textView"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginBottom="40dp"
+                        android:fontFamily="sans-serif"
+                        android:gravity="center"
+                        android:shadowColor="@color/black"
+                        android:text="Crane for Hire"
+                        android:textSize="30dp"
+                        android:textColor="@color/black"
+                        android:textStyle="bold"
+                        tools:ignore="HardcodedText" />
+                </LinearLayout>
 
                 <androidx.cardview.widget.CardView
                     android:layout_width="wrap_content"

@@ -20,9 +20,9 @@ class LoginAsAdmin : AppCompatActivity() {
         auth = FirebaseAuth.getInstance()
 
         binding.adminlogin.setOnClickListener {
-            val email = binding.adminusername.text.toString()
-            val password = binding.adminpassword.text.toString()
-            val uniqueId = binding.adminuniqeid.text.toString().trim()
+            val email = binding.adminusername.text.trim().toString()
+            val password = binding.adminpassword.text.trim().toString()
+            val uniqueId = binding.adminuniqeid.text.trim().toString()
 
             if (email.isNotEmpty() && password.isNotEmpty() && uniqueId.isNotEmpty() && uniqueId == "RS CRANES") {
                 loginUser(email, password)
@@ -40,7 +40,7 @@ class LoginAsAdmin : AppCompatActivity() {
         }
     }
     private fun resetpassword() {
-        val email = binding.adminusername.text.toString().trim()
+        val email = binding.adminusername.text.trim().toString()
         if (email.isNotEmpty()){
             auth.sendPasswordResetEmail(email)
                 .addOnCompleteListener { task->

@@ -32,13 +32,13 @@ class SignUpActivity : AppCompatActivity() {
         databaseReference = db.reference.child("Admins")
 
         // Check if the user is already signed in
-        val currentUser = auth.currentUser
-        if (currentUser != null) {
-            checkUserRole(currentUser)
-        } else {
+//        val currentUser = auth.currentUser
+//        if (currentUser != null) {
+//            checkUserRole(currentUser)
+//        } else {
             // If not signed in, proceed with the sign-up flow
             setupSignUpFlow()
-        }
+//        }
     }
 
     private fun setupSignUpFlow() {
@@ -53,9 +53,9 @@ class SignUpActivity : AppCompatActivity() {
         }
 
         binding.Adminsignup.setOnClickListener {
-            val email = binding.email.text.toString()
-            val password = binding.password.text.toString()
-            val phone = binding.phone.text.toString()
+            val email = binding.email.text.trim().toString()
+            val password = binding.password.text.trim().toString()
+            val phone = binding.phone.text.trim().toString()
 
             auth.createUserWithEmailAndPassword(email, password)
                 .addOnCompleteListener(this) { task ->
@@ -99,9 +99,9 @@ class SignUpActivity : AppCompatActivity() {
         }
 
         binding.Usersignup.setOnClickListener {
-            val email = binding.email.text.toString()
-            val password = binding.password.text.toString()
-            val phone = binding.phone.text.toString()
+            val email = binding.email.text.trim().toString()
+            val password = binding.password.text.trim().toString()
+            val phone = binding.phone.text.trim().toString()
 
             // Create user with email and password
             auth.createUserWithEmailAndPassword(email, password)
@@ -145,48 +145,48 @@ class SignUpActivity : AppCompatActivity() {
         }
     }
 
-    private fun checkUserRole(currentUser: FirebaseUser) {
-        databaseReference.addValueEventListener(object : ValueEventListener {
-            override fun onDataChange(snapshot: DataSnapshot) {
-                if (snapshot.exists()) {
-                    adminUidList.clear() // Clear the list before adding new data
-
-                    for (snapshot in snapshot.children) {
-                        val adminUid = snapshot.key // Get the UID of the admin
-                        adminUid?.let { adminUidList.add(it) } // Add only non-null UID
-                    }
-
-                    if (adminUidList.contains(
-                            currentUser.uid
-                        ) && currentUser.isEmailVerified
-                    ) {
-                        // Current user is an admin and email is verified, open AdminHomeActivity
-                        val intent = Intent(this@SignUpActivity, AdminHomeActivity::class.java)
-                        startActivity(intent)
-                    } else if (currentUser.isEmailVerified) {
-                        // Current user is not an admin but email is verified, open MainActivity
-                        val intent = Intent(this@SignUpActivity, MainActivity::class.java)
-                        startActivity(intent)
-                    } else {
-                        // Email is not verified, display error message
-                        Toast.makeText(
-                            this@SignUpActivity,
-                            "Please verify your email address",
-                            Toast.LENGTH_SHORT
-                        ).show()
-                    }
-                    finish()
-                }
-            }
-
-            override fun onCancelled(error: DatabaseError) {
-                // Handle cancellation of the database operation
-                Toast.makeText(
-                    this@SignUpActivity,
-                    "Failed to read admin UIDs: ${error.message}",
-                    Toast.LENGTH_SHORT
-                ).show()
-            }
-        })
-    }
+//    private fun checkUserRole(currentUser: FirebaseUser) {
+//        databaseReference.addValueEventListener(object : ValueEventListener {
+//            override fun onDataChange(snapshot: DataSnapshot) {
+//                if (snapshot.exists()) {
+//                    adminUidList.clear() // Clear the list before adding new data
+//
+//                    for (snapshot in snapshot.children) {
+//                        val adminUid = snapshot.key // Get the UID of the admin
+//                        adminUid?.let { adminUidList.add(it) } // Add only non-null UID
+//                    }
+//
+//                    if (adminUidList.contains(
+//                            currentUser.uid
+//                        ) && currentUser.isEmailVerified
+//                    ) {
+//                        // Current user is an admin and email is verified, open AdminHomeActivity
+//                        val intent = Intent(this@SignUpActivity, AdminHomeActivity::class.java)
+//                        startActivity(intent)
+//                    } else if (currentUser.isEmailVerified) {
+//                        // Current user is not an admin but email is verified, open MainActivity
+//                        val intent = Intent(this@SignUpActivity, MainActivity::class.java)
+//                        startActivity(intent)
+//                    } else {
+//                        // Email is not verified, display error message
+//                        Toast.makeText(
+//                            this@SignUpActivity,
+//                            "Please verify your email address",
+//                            Toast.LENGTH_SHORT
+//                        ).show()
+//                    }
+//                    finish()
+//                }
+//            }
+//
+//            override fun onCancelled(error: DatabaseError) {
+//                // Handle cancellation of the database operation
+//                Toast.makeText(
+//                    this@SignUpActivity,
+//                    "Failed to read admin UIDs: ${error.message}",
+//                    Toast.LENGTH_SHORT
+//                ).show()
+//            }
+//        })
+//    }
 }

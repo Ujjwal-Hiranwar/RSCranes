@@ -23,6 +23,7 @@ import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.ValueEventListener
+import com.mypackage.rscranes.SplashScreenActivity.adminUser.isAdmin
 import com.mypackage.rscranes.databinding.ActivityAdminAddCraneBinding
 
 class AdminAddCrane : AppCompatActivity() {
@@ -32,7 +33,6 @@ class AdminAddCrane : AppCompatActivity() {
     private lateinit var storageRef: StorageReference
     private var imageUri: Uri? = null
     private lateinit var databaseReference: DatabaseReference
-    private val adminUidList = ArrayList<String>()
     private lateinit var auth: FirebaseAuth
 
 
@@ -45,8 +45,6 @@ class AdminAddCrane : AppCompatActivity() {
         db = FirebaseDatabase.getInstance()
         storageRef = FirebaseStorage.getInstance().reference
         databaseReference = db.reference.child("Admins")
-        val currentUser = auth.currentUser?.uid
-
 
         val launcher: ActivityResultLauncher<Intent> = registerForActivityResult(
             ActivityResultContracts.StartActivityForResult()
@@ -56,6 +54,10 @@ class AdminAddCrane : AppCompatActivity() {
                 imageUri = result.data?.data
                 binding.uploadImg.setImageURI(imageUri)
             }
+        }
+
+        binding.back.setOnClickListener {
+            finish()
         }
 
         binding.uploadImg.setOnClickListener {
@@ -76,6 +78,7 @@ class AdminAddCrane : AppCompatActivity() {
             val flyjib = binding.editcraneflyjib.text.trim().toString()
             val status = binding.editstatus.text.trim().toString()
             val type = binding.editType.text.trim().toString()
+            val description = binding.des.text.trim().toString()
 
             if (model.isNotEmpty() && location.isNotEmpty() && capacity.isNotEmpty() && boomLength.isNotEmpty() && flyjib.isNotEmpty() && status.isNotEmpty() && type.isNotEmpty()) {
 
@@ -87,16 +90,27 @@ class AdminAddCrane : AppCompatActivity() {
                         boomLength,
                         flyjib,
                         status,
-                        type
+                        type,
+                        description
                     )
                 } else {
                     Toast.makeText(this, "Please select an image", Toast.LENGTH_SHORT).show()
                 }
 
-                checkUser(currentUser.toString())
+//                checkUser(currentUser.toString())
 
-                intent = Intent(this, MainActivity::class.java)
-                startActivity(intent)
+                Toast.makeText(this@AdminAddCrane, isAdmin.toString(), Toast.LENGTH_SHORT)
+                    .show()
+
+                if (isAdmin) {
+                    startActivity(Intent(this@AdminAddCrane, AdminHomeActivity::class.java))
+                } else {
+                    Toast.makeText(
+                        this@AdminAddCrane,
+                        "Something went wrong in AdminAddCrane",
+                        Toast.LENGTH_LONG
+                    ).show()
+                }
             }else {
                 Toast.makeText(this, "Please fill all required details", Toast.LENGTH_SHORT).show()
             }
@@ -111,7 +125,8 @@ class AdminAddCrane : AppCompatActivity() {
         boomLength: String,
         flyjib: String,
         status: String,
-        type: String
+        type: String,
+        description: String
     ) {
         val imageRef =
             storageRef.child("crane_images/" + model + "_" + System.currentTimeMillis() + ".jpg") // Create unique filename with timestamp
@@ -128,11 +143,12 @@ class AdminAddCrane : AppCompatActivity() {
                             capacity,
                             boomLength,
                             flyjib,
-                            status,
                             imageUrl,
-                            type
+                            status,
+                            type,
+                            description
                         )
-                        val dataModel = dataModel(model, imageUrl)
+                        val dataModel = dataModel(model, imageUrl,description)
                         db.getReference("Crane details").child(model).setValue(craneDetails)
                         db.getReference("Model and Image").child(model).setValue(dataModel)
                         Toast.makeText(this, "Crane details added with image", Toast.LENGTH_SHORT)
@@ -159,43 +175,5 @@ class AdminAddCrane : AppCompatActivity() {
         }
     }
 
-    private fun checkUser(currentUser: String) {
-        databaseReference.addValueEventListener(object : ValueEventListener {
-            override fun onDataChange(snapshot: DataSnapshot) {
-                if (snapshot.exists()) {
-                    adminUidList.clear() // Clear the list before adding new data
-
-                    for (snapshot in snapshot.children) {
-                        val adminUid = snapshot.key // Get the UID of the admin
-                        adminUid?.let { adminUidList.add(it)
-                            Log.d("AdminAddCrane",it)} // Add only non-null UID
-                    }
-
-                    val isAdmin = adminUidList.contains(currentUser)
-                    Toast.makeText(this@AdminAddCrane, isAdmin.toString(), Toast.LENGTH_SHORT)
-                        .show()
-
-                    if (isAdmin) {
-                        startActivity(Intent(this@AdminAddCrane, AdminHomeActivity::class.java))
-                    } else {
-                        Toast.makeText(
-                            this@AdminAddCrane,
-                            "Something went wrong in AdminAddCrane",
-                            Toast.LENGTH_LONG
-                        ).show()
-                    }
-                }
-            }
-
-            override fun onCancelled(error: DatabaseError) {
-                // Handle cancellation of the database operation
-                Toast.makeText(
-                    this@AdminAddCrane,
-                    "Failed to read admin UIDs: ${error.message}",
-                    Toast.LENGTH_SHORT
-                ).show()
-            }
-        })
-    }
 }
 
