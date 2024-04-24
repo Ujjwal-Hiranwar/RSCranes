@@ -33,7 +33,7 @@ class CraneInfoView : AppCompatActivity() {
         auth = FirebaseAuth.getInstance()
         db = FirebaseDatabase.getInstance()
         databaseReference = db.reference.child("Crane details").child(receivedValue.toString())
-
+        Toast.makeText(this, isAdmin.toString(), Toast.LENGTH_SHORT).show()
         if (isAdmin) {
             binding.edit.visibility = View.VISIBLE
             binding.editImg.visibility = View.VISIBLE

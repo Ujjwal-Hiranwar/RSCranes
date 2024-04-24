@@ -32,11 +32,6 @@ class Edit_Crane_Info : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
 //        setContentView(R.layout.activity_edit_crane_info)
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
-            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
-            insets
-        }
 
         val receivedValue = intent.getStringExtra("model_name_key")
         Log.d("todo", receivedValue.toString())
