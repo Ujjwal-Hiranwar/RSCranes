@@ -92,7 +92,7 @@ class AdminHomeActivity : AppCompatActivity(), CraneAdapter.OnItemClickListener,
             }
             R.id.nav_home ->generalView()
             R.id.nav_hire ->rentView()
-            R.id.nav_purchase ->purchaseView()
+            R.id.nav_purchase ->{purchaseView()}
         }
         drawerLayout.closeDrawer(GravityCompat.START)
         return true
