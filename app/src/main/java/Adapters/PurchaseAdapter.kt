@@ -12,8 +12,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.mypackage.rscranes.R
 import com.squareup.picasso.Picasso
 
-class RentAdapter(private val context: Context, private val craneList: ArrayList<CraneDetails>) :
-    RecyclerView.Adapter<RentAdapter.ViewHolder>() {
+class PurchaseAdapter(private val context: Context, private val craneList: ArrayList<CraneDetails>) :
+    RecyclerView.Adapter<PurchaseAdapter.ViewHolder>() {
 
     private lateinit var myListener: OnItemClickListener
     interface OnItemClickListener {
@@ -21,7 +21,7 @@ class RentAdapter(private val context: Context, private val craneList: ArrayList
         fun onItemClick(position: Int)
     }
 
-    fun setOnItemClickListener(listener: RentAdapter.OnItemClickListener) {
+    fun setOnItemClickListener(listener: PurchaseAdapter.OnItemClickListener) {
         myListener = listener
     }
 
@@ -58,7 +58,7 @@ class RentAdapter(private val context: Context, private val craneList: ArrayList
         }
     }
 
-        override fun getItemCount(): Int {
-            return craneList.size
-        }
+    override fun getItemCount(): Int {
+        return craneList.size
+    }
 }

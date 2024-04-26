@@ -17,7 +17,6 @@ import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
-import com.mypackage.rscranes.SplashScreenActivity.adminUser.isAdmin
 import com.mypackage.rscranes.databinding.ActivityCraneForSaleBinding
 
 class CraneForSale : AppCompatActivity() {
@@ -53,22 +52,7 @@ class CraneForSale : AppCompatActivity() {
                 val RentRequests = RentRequests(capacity,name,number,duration,other)
                 databaseReference.child(name).setValue(RentRequests).addOnCompleteListener {
                     Toast.makeText(this, "Request Sent Successfully", Toast.LENGTH_SHORT).show()
-//                    checkUser(currentUser!!)
-
-//                    SplashScreenActivity.adminUser.checkAdmin(isAdmin)
-                    Toast.makeText(this@CraneForSale, "$isAdmin", Toast.LENGTH_SHORT).show()
-                    if (isAdmin) {
-                        startActivity(Intent(this@CraneForSale, AdminHomeActivity::class.java))
-                    }
-                    else {
-                        Toast.makeText(
-                            this@CraneForSale,
-                            "Something went wrong in CraneforRent",
-                            Toast.LENGTH_LONG
-                        ).show()
-                        startActivity(Intent(this@CraneForSale, MainActivity::class.java))
-
-                    }
+                    finish()
                 }
 
             } else {
