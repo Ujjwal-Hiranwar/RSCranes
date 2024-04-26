@@ -9,6 +9,7 @@ import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.mypackage.rscranes.MainActivity
 import com.mypackage.rscranes.R
 import com.squareup.picasso.Picasso
 
@@ -21,7 +22,7 @@ class RentAdapter(private val context: Context, private val craneList: ArrayList
         fun onItemClick(position: Int)
     }
 
-    fun setOnItemClickListener(listener: OnItemClickListener) {
+    fun setOnItemClickListener(listener: MainActivity) {
         myListener = listener
     }
 

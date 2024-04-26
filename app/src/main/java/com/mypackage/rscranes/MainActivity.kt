@@ -25,7 +25,8 @@ import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 import com.mypackage.rscranes.databinding.ActivityMainBinding
 
-class MainActivity : AppCompatActivity(), CraneAdapter.OnItemClickListener , NavigationView.OnNavigationItemSelectedListener{
+class MainActivity : AppCompatActivity(), CraneAdapter.OnItemClickListener , NavigationView.OnNavigationItemSelectedListener,
+    RentAdapter.OnItemClickListener {
     private lateinit var binding: ActivityMainBinding
     private lateinit var auth: FirebaseAuth
     private lateinit var db: FirebaseDatabase
