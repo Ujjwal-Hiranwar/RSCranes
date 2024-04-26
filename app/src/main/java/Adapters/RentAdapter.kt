@@ -1,6 +1,6 @@
 package Adapters
 
-import Models.dataModel
+import Models.CraneDetails
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
@@ -12,8 +12,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.mypackage.rscranes.R
 import com.squareup.picasso.Picasso
 
-class CraneAdapter(private val context: Context, private val craneList: ArrayList<dataModel>) :
-    RecyclerView.Adapter<CraneAdapter.ViewHolder>() {
+class RentAdapter(private val context: Context, private val craneList: ArrayList<CraneDetails>) :
+    RecyclerView.Adapter<RentAdapter.ViewHolder>() {
 
     private lateinit var myListener: OnItemClickListener
     interface OnItemClickListener {
@@ -48,17 +48,17 @@ class CraneAdapter(private val context: Context, private val craneList: ArrayLis
         return ViewHolder(view)
     }
 
-    override fun getItemCount(): Int {
-        return craneList.size
-    }
-
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val currentItem = craneList[position]
-        holder.modelName.text = currentItem.modelName
+        holder.modelName.text = currentItem.model
         Picasso.get().load(craneList[position].image).into(holder.img)
         holder.description.text = currentItem.description
         holder.checkBtn.setOnClickListener {
             myListener.onItemClick(position)
         }
     }
+
+        override fun getItemCount(): Int {
+            return craneList.size
+        }
 }

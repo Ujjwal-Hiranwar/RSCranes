@@ -1,5 +1,8 @@
 package com.mypackage.rscranes
 
+import Models.CraneDetails
+import Models.dataModel
+import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Intent
 import android.net.Uri
@@ -10,20 +13,11 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import com.github.dhaval2404.imagepicker.ImagePicker
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
-import Models.CraneDetails
-import Models.dataModel
-import android.annotation.SuppressLint
-import android.content.ContentValues
-import android.util.Log
-import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.database.DataSnapshot
-import com.google.firebase.database.DatabaseError
-import com.google.firebase.database.DatabaseReference
-import com.google.firebase.database.ValueEventListener
-import com.google.protobuf.NullValue
 import com.mypackage.rscranes.SplashScreenActivity.adminUser.isAdmin
 import com.mypackage.rscranes.databinding.ActivityAdminAddCraneBinding
 
@@ -98,8 +92,6 @@ class AdminAddCrane : AppCompatActivity() {
                 } else {
                     Toast.makeText(this, "Please select an image", Toast.LENGTH_SHORT).show()
                 }
-
-//                checkUser(currentUser.toString())
 
                 Toast.makeText(this@AdminAddCrane, isAdmin.toString(), Toast.LENGTH_SHORT)
                     .show()
