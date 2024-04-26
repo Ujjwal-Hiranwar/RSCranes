@@ -5,6 +5,12 @@
     tools:showIn="navigation_view">
     <group>
 
+        <item android:id="@+id/nav_hire"
+            android:title="Hire" />
+
+        <item android:id="@+id/nav_purchase"
+            android:title="Purchase" />
+
         <item android:id="@+id/nav_logout"
             android:title="Logout" />
 
