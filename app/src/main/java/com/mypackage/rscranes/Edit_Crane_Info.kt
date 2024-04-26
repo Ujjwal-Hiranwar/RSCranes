@@ -35,6 +35,7 @@ class Edit_Crane_Info : AppCompatActivity() {
 
         val receivedValue = intent.getStringExtra("model_name_key")
         Log.d("todo", receivedValue.toString())
+
         auth = FirebaseAuth.getInstance()
         db = FirebaseDatabase.getInstance()
         databaseReference = db.reference.child("Crane details").child(receivedValue.toString())
