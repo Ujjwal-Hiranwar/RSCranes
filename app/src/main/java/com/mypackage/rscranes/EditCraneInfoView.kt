@@ -24,14 +24,14 @@ class EditCraneInfoView : AppCompatActivity() {
     private lateinit var db: FirebaseDatabase
     private lateinit var databaseReference: DatabaseReference
     private lateinit var databaseReferenceDel: DatabaseReference
-
+private lateinit var receivedValue:String
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
 
         binding = DataBindingUtil.setContentView(this, R.layout.activity_edit_crane_info_view)
-        val receivedValue = intent.getStringExtra("model_name_key")
-        Log.d("todo", receivedValue.toString())
+        val receivedValue = intent.getStringExtra("model_name_key").toString()
+        Log.d("todo", receivedValue)
 
         auth = FirebaseAuth.getInstance()
         db = FirebaseDatabase.getInstance()
@@ -98,8 +98,7 @@ class EditCraneInfoView : AppCompatActivity() {
             }
         })
 
-//        Delete old data
-    databaseReference.removeValue()
+
 
         binding.addcrane.setOnClickListener {
 
@@ -167,7 +166,7 @@ class EditCraneInfoView : AppCompatActivity() {
             description
         )
         val dataModel = dataModel(model,  binding.uploadImg.toString(), description)
-        db.getReference("Crane details").child(model).setValue(craneDetails)
+        db.getReference("Crane details").child(receivedValue).setValue(craneDetails)
         db.getReference("Model and Image").child(model).setValue(dataModel)
         Toast.makeText(this, "Crane details added with image", Toast.LENGTH_SHORT)
             .show()
