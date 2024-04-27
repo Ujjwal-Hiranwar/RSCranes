@@ -23,19 +23,18 @@ class EditCraneInfoView : AppCompatActivity() {
     private lateinit var auth: FirebaseAuth
     private lateinit var db: FirebaseDatabase
     private lateinit var databaseReference: DatabaseReference
-    private lateinit var databaseReferenceDel: DatabaseReference
-private lateinit var receivedValue:String
+    private lateinit var receivedValue:String
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
 
         binding = DataBindingUtil.setContentView(this, R.layout.activity_edit_crane_info_view)
-        val receivedValue = intent.getStringExtra("model_name_key").toString()
+         receivedValue = intent.getStringExtra("model_name_key").toString()
         Log.d("todo", receivedValue)
 
         auth = FirebaseAuth.getInstance()
         db = FirebaseDatabase.getInstance()
-        databaseReference = db.reference.child("Crane details").child(receivedValue.toString())
+        databaseReference = db.reference.child("Crane details").child(receivedValue)
 
         databaseReference.addValueEventListener(object : ValueEventListener {
 
@@ -152,8 +151,6 @@ private lateinit var receivedValue:String
     ) {
 
         // Image upload successful
-
-
         val craneDetails = CraneDetails(
             model,
             location,
