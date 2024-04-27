@@ -23,6 +23,7 @@ class EditCraneInfoView : AppCompatActivity() {
     private lateinit var auth: FirebaseAuth
     private lateinit var db: FirebaseDatabase
     private lateinit var databaseReference: DatabaseReference
+    private lateinit var databaseReferenceDel: DatabaseReference
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -96,6 +97,9 @@ class EditCraneInfoView : AppCompatActivity() {
                 Log.w(ContentValues.TAG, "Failed to read value.", error.toException())
             }
         })
+
+//        Delete old data
+    databaseReference.removeValue()
 
         binding.addcrane.setOnClickListener {
 
