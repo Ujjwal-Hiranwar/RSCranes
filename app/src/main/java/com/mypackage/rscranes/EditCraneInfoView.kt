@@ -111,7 +111,7 @@ class EditCraneInfoView : AppCompatActivity() {
         })
 
 
-        binding.addcrane.setOnClickListener {
+        binding.save.setOnClickListener {
 
             val model = binding.editcranemodel.text.trim().toString()
             val location = binding.editcranelocation.text.trim().toString()
