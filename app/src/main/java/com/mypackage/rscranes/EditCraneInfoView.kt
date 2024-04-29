@@ -21,6 +21,7 @@ import com.google.firebase.database.ValueEventListener
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
 import com.mypackage.rscranes.databinding.ActivityEditCraneInfoViewBinding
+import com.squareup.picasso.Picasso
 
 class EditCraneInfoView : AppCompatActivity() {
     private lateinit var binding :ActivityEditCraneInfoViewBinding
@@ -40,7 +41,6 @@ class EditCraneInfoView : AppCompatActivity() {
          receivedValue = intent.getStringExtra("model_name_key").toString()
         Log.d("todo", receivedValue)
         storageRef = FirebaseStorage.getInstance().reference
-
         auth = FirebaseAuth.getInstance()
         db = FirebaseDatabase.getInstance()
         databaseReference = db.reference.child("Crane details").child(receivedValue)
@@ -73,7 +73,8 @@ class EditCraneInfoView : AppCompatActivity() {
                                 i++
                             }
                             4 -> {
-                    //                          Image section
+                                imageUri = Uri.parse(crane.toString())
+                                Picasso.get().load(imageUri).into(binding.uploadImg)
                                 i++
                             }
                             5 -> {
@@ -111,14 +112,14 @@ class EditCraneInfoView : AppCompatActivity() {
 
         binding.save.setOnClickListener {
 
-            val model = binding.editcranemodel.text.trim().toString()
-            val location = binding.editcranelocation.text.trim().toString()
-            val capacity = binding.editcranecapacity.text.trim().toString()
-            val boomLength = binding.editcraneboomlength.text.trim().toString()
-            val flyjib = binding.editcraneflyjib.text.trim().toString()
-            val status = binding.editstatus.text.trim().toString()
-            val type = binding.editType.text.trim().toString()
-            val description = binding.des.text.trim().toString()
+            val model = binding.editcranemodel.text.toString()
+            val location = binding.editcranelocation.text.toString()
+            val capacity = binding.editcranecapacity.text.toString()
+            val boomLength = binding.editcraneboomlength.text.toString()
+            val flyjib = binding.editcraneflyjib.text.toString()
+            val status = binding.editstatus.text.toString()
+            val type = binding.editType.text.toString()
+            val description = binding.des.text.toString()
 
             uploadImageToFirebase(model,location,capacity,boomLength,flyjib,status,type,description)
 
@@ -165,7 +166,7 @@ class EditCraneInfoView : AppCompatActivity() {
         imageUri?.let { uri ->
             imageRef.putFile(uri)
                 .addOnSuccessListener { taskSnapshot ->
-                    // Image upload successful
+//                    Image upload successful
                     imageRef.downloadUrl.addOnCompleteListener { task ->
                         val imageUrl = task.result.toString()
                         val craneDetails = CraneDetails(
@@ -174,16 +175,18 @@ class EditCraneInfoView : AppCompatActivity() {
                             capacity,
                             boomLength,
                             flyjib,
-                            imageUrl,
+                            binding.uploadImg.toString(),
                             status,
                             type,
                             description
                         )
-                        val dataModel = dataModel(model, imageUrl,description)
-                        db.getReference("Crane details").child(receivedValue).setValue(craneDetails)
-                        db.getReference("Model and Image").child(receivedValue).setValue(dataModel)
+                        val dataModel = dataModel(model, binding.uploadImg.toString(), description)
+                        databaseReference.setValue(craneDetails)
+                        db.reference.child("Model and Image").child(receivedValue)
+                            .setValue(dataModel)
                         Toast.makeText(this, "Crane details added with image", Toast.LENGTH_SHORT)
                             .show()
+
                     }
                 }
                 .addOnFailureListener { exception ->
