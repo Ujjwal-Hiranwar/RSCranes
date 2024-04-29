@@ -29,6 +29,7 @@ class EditCraneInfoView : AppCompatActivity() {
     private lateinit var db: FirebaseDatabase
     private lateinit var storageRef: StorageReference
     private var imageUri: Uri? = null
+    private var imagei: Uri? = null
     private lateinit var databaseReference: DatabaseReference
     private lateinit var receivedValue:String
     private lateinit var deldata:StorageReference
@@ -73,8 +74,8 @@ class EditCraneInfoView : AppCompatActivity() {
                                 i++
                             }
                             4 -> {
-                                imageUri = Uri.parse(crane.toString())
-                                Picasso.get().load(imageUri).into(binding.uploadImg)
+                                imagei = Uri.parse(crane.toString())
+                                Picasso.get().load(imagei).into(binding.uploadImg)
                                 i++
                             }
                             5 -> {
@@ -163,6 +164,26 @@ class EditCraneInfoView : AppCompatActivity() {
         val imageRef =
             storageRef.child("crane_images/" + model + "_" + System.currentTimeMillis() + ".jpg") // Create unique filename with timestamp
 
+
+
+        val craneDetails = CraneDetails(
+            model,
+            location,
+            capacity,
+            boomLength,
+            flyjib,
+           imagei.toString(),
+            status,
+            type,
+            description
+        )
+        val dataModel = dataModel(model,imagei.toString(), description)
+        db.reference.child("Crane details").child(receivedValue).setValue(craneDetails)
+        db.reference.child("Model and Image").child(receivedValue)
+            .setValue(dataModel)
+
+
+
         imageUri?.let { uri ->
             imageRef.putFile(uri)
                 .addOnSuccessListener { taskSnapshot ->
@@ -175,13 +196,13 @@ class EditCraneInfoView : AppCompatActivity() {
                             capacity,
                             boomLength,
                             flyjib,
-                            binding.uploadImg.toString(),
+                        binding.uploadImg.toString(),
                             status,
                             type,
                             description
                         )
                         val dataModel = dataModel(model, binding.uploadImg.toString(), description)
-                        databaseReference.setValue(craneDetails)
+                        db.reference.child("Crane details").child(receivedValue).setValue(craneDetails)
                         db.reference.child("Model and Image").child(receivedValue)
                             .setValue(dataModel)
                         Toast.makeText(this, "Crane details added with image", Toast.LENGTH_SHORT)
@@ -190,6 +211,24 @@ class EditCraneInfoView : AppCompatActivity() {
                     }
                 }
                 .addOnFailureListener { exception ->
+
+                    val craneDetails = CraneDetails(
+                        model,
+                        location,
+                        capacity,
+                        boomLength,
+                        flyjib,
+                        binding.uploadImg.toString(),
+                        status,
+                        type,
+                        description
+                    )
+                    val dataModel = dataModel(model, binding.uploadImg.toString(), description)
+                    db.reference.child("Crane details").child(receivedValue).setValue(craneDetails)
+                    db.reference.child("Model and Image").child(receivedValue)
+                        .setValue(dataModel)
+                    Toast.makeText(this, "Crane details added with image", Toast.LENGTH_SHORT)
+                        .show()
                     // Image upload failed
                     Toast.makeText(
                         this,

@@ -34,6 +34,7 @@ class CraneAdapter(private val context: Context, private val craneList: ArrayLis
 
         init {
            checkBtn.setOnClickListener(this)
+
         }
 
         override fun onClick(v: View?) {
