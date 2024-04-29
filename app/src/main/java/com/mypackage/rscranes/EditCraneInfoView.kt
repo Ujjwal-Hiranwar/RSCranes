@@ -32,7 +32,7 @@ class EditCraneInfoView : AppCompatActivity() {
     private var imagei: Uri? = null
     private lateinit var databaseReference: DatabaseReference
     private lateinit var receivedValue:String
-    private lateinit var deldata:StorageReference
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -163,8 +163,6 @@ class EditCraneInfoView : AppCompatActivity() {
     ) {
         val imageRef =
             storageRef.child("crane_images/" + model + "_" + System.currentTimeMillis() + ".jpg") // Create unique filename with timestamp
-
-
 
         val craneDetails = CraneDetails(
             model,

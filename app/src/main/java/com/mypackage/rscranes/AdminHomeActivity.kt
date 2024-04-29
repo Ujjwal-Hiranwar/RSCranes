@@ -24,6 +24,7 @@ import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
+import com.google.firebase.storage.FirebaseStorage
 import com.mypackage.rscranes.databinding.ActivityAdminHomeBinding
 
 class AdminHomeActivity : AppCompatActivity(), CraneAdapter.OnItemClickListener,
@@ -68,7 +69,7 @@ class AdminHomeActivity : AppCompatActivity(), CraneAdapter.OnItemClickListener,
         }
         binding.craneRecycleView.layoutManager = LinearLayoutManager(this)
         generalView()
-        
+
 
     }
 
@@ -130,6 +131,19 @@ class AdminHomeActivity : AppCompatActivity(), CraneAdapter.OnItemClickListener,
         val clickedItem = craneList[position]
         val intent = Intent(this, CraneInfoView::class.java)
         intent.putExtra("key", clickedItem.modelName)
+        startActivity(intent)
+    }
+
+    override fun onItemClickDel(position: Int) {
+        val clickedItem = craneList[position]
+     val   storageRef = db.reference.child("Model and Image").child(clickedItem.modelName)
+
+        auth = FirebaseAuth.getInstance()
+        db = FirebaseDatabase.getInstance()
+        databaseReference = db.reference.child("Crane details").child(clickedItem.modelName)
+        databaseReference.removeValue()
+        storageRef.removeValue()
+        val intent = Intent(this, AdminHomeActivity::class.java)
         startActivity(intent)
     }
     fun purchaseView(){

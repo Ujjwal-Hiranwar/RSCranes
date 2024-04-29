@@ -206,6 +206,10 @@ class MainActivity : AppCompatActivity(), CraneAdapter.OnItemClickListener,
         })
 
     }
+
+    override fun onItemClickDel(position: Int) {
+        TODO("Not yet implemented")
+    }
     override fun onItemClick(position: Int) {
         val clickedItem = craneList[position]
         val intent = Intent(this, CraneInfoView::class.java)

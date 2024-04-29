@@ -19,6 +19,7 @@ class CraneAdapter(private val context: Context, private val craneList: ArrayLis
     interface OnItemClickListener {
 
         fun onItemClick(position: Int)
+        fun onItemClickDel(position: Int)
     }
 
     fun setOnItemClickListener(listener: OnItemClickListener) {
@@ -30,11 +31,11 @@ class CraneAdapter(private val context: Context, private val craneList: ArrayLis
         val img: ImageView = itemView.findViewById(R.id.crane_img)
         val checkBtn: Button = itemView.findViewById(R.id.checkNow)
         val description : TextView = itemView.findViewById(R.id.des)
-
+     val  delBtn : ImageView = itemView.findViewById(R.id.delete)
 
         init {
            checkBtn.setOnClickListener(this)
-
+            delBtn.setOnClickListener(this)
         }
 
         override fun onClick(v: View?) {
@@ -56,6 +57,9 @@ class CraneAdapter(private val context: Context, private val craneList: ArrayLis
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val currentItem = craneList[position]
         holder.modelName.text = currentItem.modelName
+        holder.delBtn.setOnClickListener {
+            myListener.onItemClickDel(position)
+        }
         Picasso.get().load(craneList[position].image).into(holder.img)
         holder.description.text = currentItem.description
         holder.checkBtn.setOnClickListener {
