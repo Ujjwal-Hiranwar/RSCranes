@@ -104,6 +104,7 @@
                                 android:background="@drawable/roundstyle"
                                 android:backgroundTint="@color/white"
                                 android:gravity="center"
+                                android:editable="false"
                                 android:hint="Model Name"
                                 android:padding="8dp"
                                 android:textColor="@color/black"

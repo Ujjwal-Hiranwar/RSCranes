@@ -39,13 +39,19 @@ class EditCraneInfoView : AppCompatActivity() {
         enableEdgeToEdge()
 
         binding = DataBindingUtil.setContentView(this, R.layout.activity_edit_crane_info_view)
-         receivedValue = intent.getStringExtra("model_name_key").toString()
+        receivedValue = intent.getStringExtra("model_name_key").toString()
         Log.d("todo", receivedValue)
         storageRef = FirebaseStorage.getInstance().reference
         auth = FirebaseAuth.getInstance()
         db = FirebaseDatabase.getInstance()
         databaseReference = db.reference.child("Crane details").child(receivedValue)
 
+        binding.uploadImg.setOnClickListener {
+            // Open image picker
+            val intent = Intent(Intent.ACTION_GET_CONTENT)
+            intent.type = "image/*"
+            startActivityForResult(intent, PICK_IMAGE_REQUEST)
+        }
         databaseReference.addValueEventListener(object : ValueEventListener {
 
             override fun onDataChange(snapshot: DataSnapshot) {
@@ -98,11 +104,8 @@ class EditCraneInfoView : AppCompatActivity() {
                             }
                         }
 
-
                     }
                 }
-
-
             }
 
             override fun onCancelled(error: DatabaseError) {
@@ -125,15 +128,11 @@ class EditCraneInfoView : AppCompatActivity() {
             uploadImageToFirebase(model,location,capacity,boomLength,flyjib,status,type,description)
 
             if (model.isNotEmpty() && location.isNotEmpty() && capacity.isNotEmpty() && boomLength.isNotEmpty() && flyjib.isNotEmpty() && status.isNotEmpty() && type.isNotEmpty()) {
-
-//                checkUser(currentUser.toString())
-
                 Toast.makeText(
                     this@EditCraneInfoView,
                     SplashScreenActivity.adminUser.isAdmin.toString(),
                     Toast.LENGTH_SHORT
-                )
-                    .show()
+                ).show()
 
                 if (SplashScreenActivity.adminUser.isAdmin) {
                     startActivity(Intent(this@EditCraneInfoView, AdminHomeActivity::class.java))
@@ -161,90 +160,95 @@ class EditCraneInfoView : AppCompatActivity() {
         type: String,
         description: String
     ) {
-        val imageRef =
-            storageRef.child("crane_images/" + model + "_" + System.currentTimeMillis() + ".jpg") // Create unique filename with timestamp
-
-        val craneDetails = CraneDetails(
-            model,
-            location,
-            capacity,
-            boomLength,
-            flyjib,
-           imagei.toString(),
-            status,
-            type,
-            description
-        )
-        val dataModel = dataModel(model,imagei.toString(), description)
-        db.reference.child("Crane details").child(receivedValue).setValue(craneDetails)
-        db.reference.child("Model and Image").child(receivedValue)
-            .setValue(dataModel)
-
-
+        val imageRef = storageRef.child("crane_images/$receivedValue.jpg")
 
         imageUri?.let { uri ->
             imageRef.putFile(uri)
                 .addOnSuccessListener { taskSnapshot ->
-//                    Image upload successful
-                    imageRef.downloadUrl.addOnCompleteListener { task ->
-                        val imageUrl = task.result.toString()
+                    // Image upload successful
+                    imageRef.downloadUrl.addOnSuccessListener { imageUrl ->
+                        // Update the image URL in CraneDetails
+                        val imageUrlString = imageUrl.toString()
                         val craneDetails = CraneDetails(
                             model,
                             location,
                             capacity,
                             boomLength,
                             flyjib,
-                        binding.uploadImg.toString(),
+                            imageUrlString, // Update image URL here
                             status,
                             type,
                             description
                         )
-                        val dataModel = dataModel(model, binding.uploadImg.toString(), description)
-                        db.reference.child("Crane details").child(receivedValue).setValue(craneDetails)
-                        db.reference.child("Model and Image").child(receivedValue)
-                            .setValue(dataModel)
-                        Toast.makeText(this, "Crane details added with image", Toast.LENGTH_SHORT)
-                            .show()
-
+                        db.reference.child("Crane details").child(receivedValue)
+                            .setValue(craneDetails)
+                            .addOnSuccessListener {
+                                // Update the image URL in dataModel
+                                val dataModel = dataModel(model, imageUrlString, description)
+                                db.reference.child("Model and Image").child(receivedValue)
+                                    .setValue(dataModel)
+                                    .addOnSuccessListener {
+                                        // Both CraneDetails and dataModel updated successfully
+                                        Toast.makeText(this, "Crane details and image URL updated", Toast.LENGTH_SHORT).show()
+                                    }
+                            }
                     }
                 }
                 .addOnFailureListener { exception ->
-
-                    val craneDetails = CraneDetails(
-                        model,
-                        location,
-                        capacity,
-                        boomLength,
-                        flyjib,
-                        binding.uploadImg.toString(),
-                        status,
-                        type,
-                        description
-                    )
-                    val dataModel = dataModel(model, binding.uploadImg.toString(), description)
-                    db.reference.child("Crane details").child(receivedValue).setValue(craneDetails)
-                    db.reference.child("Model and Image").child(receivedValue)
-                        .setValue(dataModel)
-                    Toast.makeText(this, "Crane details added with image", Toast.LENGTH_SHORT)
-                        .show()
                     // Image upload failed
                     Toast.makeText(
                         this,
-                        "Image upload failed: " + exception.message,
+                        "Image upload failed: ${exception.message}",
                         Toast.LENGTH_SHORT
                     ).show()
                 }
         }
     }
+
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
 
-        if (requestCode == requestCode && resultCode == Activity.RESULT_OK) {
+        if (requestCode == PICK_IMAGE_REQUEST && resultCode == Activity.RESULT_OK) {
             imageUri = data?.data
             binding.uploadImg.setImageURI(imageUri)  // Set the image in the ImageView
+
+            // Upload the new image to Firebase storage and update the database
+            imageUri?.let { uri ->
+                val imageRef = storageRef.child("crane_images/$receivedValue.jpg")
+                imageRef.putFile(uri)
+                    .addOnSuccessListener { taskSnapshot ->
+                        // Image upload successful
+                        imageRef.downloadUrl.addOnSuccessListener { imageUrl ->
+                            // Update the image URL in the database
+                            val imageUrlString = imageUrl.toString()
+                            db.reference.child("Crane details").child(receivedValue).child("imageURL")
+                                .setValue(imageUrlString)
+                                .addOnCompleteListener {
+                                    // Delete the previous image from storage if it exists
+                                    val previousImageRef = storageRef.child("crane_images/$receivedValue.jpg")
+                                    previousImageRef.delete().addOnSuccessListener {
+                                        // Previous image deleted successfully
+                                        Toast.makeText(this, "Image replaced successfully", Toast.LENGTH_SHORT).show()
+                                    }.addOnFailureListener {
+                                        // Failed to delete previous image
+                                        Toast.makeText(this, "Failed to delete previous image", Toast.LENGTH_SHORT).show()
+                                    }
+                                }
+                        }
+                    }
+                    .addOnFailureListener { exception ->
+                        // Image upload failed
+                        Toast.makeText(
+                            this,
+                            "Image upload failed: ${exception.message}",
+                            Toast.LENGTH_SHORT
+                        ).show()
+                    }
+            }
         }
     }
 
+    companion object {
+        private const val PICK_IMAGE_REQUEST = 1
+    }
 }
-
-

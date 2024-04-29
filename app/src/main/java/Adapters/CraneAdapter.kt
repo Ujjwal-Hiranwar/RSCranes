@@ -1,7 +1,9 @@
 package Adapters
 
 import Models.dataModel
+import android.app.AlertDialog
 import android.content.Context
+import android.content.DialogInterface
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -58,7 +60,28 @@ class CraneAdapter(private val context: Context, private val craneList: ArrayLis
         val currentItem = craneList[position]
         holder.modelName.text = currentItem.modelName
         holder.delBtn.setOnClickListener {
-            myListener.onItemClickDel(position)
+            val dialogBuilder = AlertDialog.Builder(context)
+
+            // set message of alert dialog
+            dialogBuilder.setMessage("Do you want to Delete this Model ?")
+                // if the dialog is cancelable
+                .setCancelable(false)
+                // positive button text and action
+                .setPositiveButton("Delete", DialogInterface.OnClickListener {
+                        dialog, id ->  myListener.onItemClickDel(position)
+
+                })
+                // negative button text and action
+                .setNegativeButton("Cancel", DialogInterface.OnClickListener {
+                        dialog, id -> dialog.cancel()
+                })
+
+            // create dialog box
+            val alert = dialogBuilder.create()
+            // set title for alert dialog box
+            alert.setTitle("Deleting model")
+            // show alert dialog
+            alert.show()
         }
         Picasso.get().load(craneList[position].image).into(holder.img)
         holder.description.text = currentItem.description
