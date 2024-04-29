@@ -2,8 +2,10 @@ package com.mypackage.rscranes
 
 import Models.CraneDetails
 import Models.dataModel
+import android.app.Activity
 import android.content.ContentValues
 import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
@@ -16,14 +18,20 @@ import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
+import com.google.firebase.storage.FirebaseStorage
+import com.google.firebase.storage.StorageReference
 import com.mypackage.rscranes.databinding.ActivityEditCraneInfoViewBinding
 
 class EditCraneInfoView : AppCompatActivity() {
     private lateinit var binding :ActivityEditCraneInfoViewBinding
     private lateinit var auth: FirebaseAuth
     private lateinit var db: FirebaseDatabase
+    private lateinit var storageRef: StorageReference
+    private var imageUri: Uri? = null
     private lateinit var databaseReference: DatabaseReference
     private lateinit var receivedValue:String
+    private lateinit var deldata:StorageReference
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -31,7 +39,8 @@ class EditCraneInfoView : AppCompatActivity() {
         binding = DataBindingUtil.setContentView(this, R.layout.activity_edit_crane_info_view)
          receivedValue = intent.getStringExtra("model_name_key").toString()
         Log.d("todo", receivedValue)
-
+        storageRef = FirebaseStorage.getInstance().reference.child("Crane details/$receivedValue")
+        storageRef.delete()
         auth = FirebaseAuth.getInstance()
         db = FirebaseDatabase.getInstance()
         databaseReference = db.reference.child("Crane details").child(receivedValue)
@@ -39,6 +48,7 @@ class EditCraneInfoView : AppCompatActivity() {
         databaseReference.addValueEventListener(object : ValueEventListener {
 
             override fun onDataChange(snapshot: DataSnapshot) {
+
                 if (snapshot.exists()) {
 
                     var i = 0
@@ -90,13 +100,15 @@ class EditCraneInfoView : AppCompatActivity() {
                     }
                 }
 
+//                Delete
+                databaseReference.removeValue()
+
             }
 
             override fun onCancelled(error: DatabaseError) {
                 Log.w(ContentValues.TAG, "Failed to read value.", error.toException())
             }
         })
-
 
 
         binding.addcrane.setOnClickListener {
@@ -149,24 +161,50 @@ class EditCraneInfoView : AppCompatActivity() {
         type: String,
         description: String
     ) {
+        val imageRef =
+            storageRef.child("crane_images/" + model + "_" + System.currentTimeMillis() + ".jpg") // Create unique filename with timestamp
 
-        // Image upload successful
-        val craneDetails = CraneDetails(
-            model,
-            location,
-            capacity,
-            boomLength,
-            flyjib,
-//            binding.uploadImg.toString(),
-            status,
-            type,
-            description
-        )
-        val dataModel = dataModel(model,  binding.uploadImg.toString(), description)
-        db.getReference("Crane details").child(receivedValue).setValue(craneDetails)
-        db.getReference("Model and Image").child(model).setValue(dataModel)
-        Toast.makeText(this, "Crane details added with image", Toast.LENGTH_SHORT)
-            .show()
+        imageUri?.let { uri ->
+            imageRef.putFile(uri)
+                .addOnSuccessListener { taskSnapshot ->
+                    // Image upload successful
+                    imageRef.downloadUrl.addOnCompleteListener { task ->
+                        val imageUrl = task.result.toString()
+                        val craneDetails = CraneDetails(
+                            model,
+                            location,
+                            capacity,
+                            boomLength,
+                            flyjib,
+                            imageUrl,
+                            status,
+                            type,
+                            description
+                        )
+                        val dataModel = dataModel(model, imageUrl,description)
+                        db.getReference("Crane details").child(model).setValue(craneDetails)
+                        db.getReference("Model and Image").child(model).setValue(dataModel)
+                        Toast.makeText(this, "Crane details added with image", Toast.LENGTH_SHORT)
+                            .show()
+                    }
+                }
+                .addOnFailureListener { exception ->
+                    // Image upload failed
+                    Toast.makeText(
+                        this,
+                        "Image upload failed: " + exception.message,
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
+        }
+    }
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+
+        if (requestCode == requestCode && resultCode == Activity.RESULT_OK) {
+            imageUri = data?.data
+            binding.uploadImg.setImageURI(imageUri)  // Set the image in the ImageView
+        }
     }
 
 }
