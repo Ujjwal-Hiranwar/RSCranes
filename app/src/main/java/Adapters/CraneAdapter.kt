@@ -10,8 +10,10 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
+import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.mypackage.rscranes.R
+import com.mypackage.rscranes.SplashScreenActivity
 import com.squareup.picasso.Picasso
 
 class CraneAdapter(private val context: Context, private val craneList: ArrayList<dataModel>) :
@@ -59,6 +61,13 @@ class CraneAdapter(private val context: Context, private val craneList: ArrayLis
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val currentItem = craneList[position]
         holder.modelName.text = currentItem.modelName
+//        To make delete btn visible to only admin
+        if (SplashScreenActivity.adminUser.isAdmin) {
+            holder.delBtn.visibility = View.VISIBLE
+
+        }else{
+            holder.delBtn.visibility = View.INVISIBLE
+            }
         holder.delBtn.setOnClickListener {
             val dialogBuilder = AlertDialog.Builder(context)
 
@@ -88,5 +97,6 @@ class CraneAdapter(private val context: Context, private val craneList: ArrayLis
         holder.checkBtn.setOnClickListener {
             myListener.onItemClick(position)
         }
+
     }
 }

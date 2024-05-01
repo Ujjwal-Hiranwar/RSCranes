@@ -8,6 +8,7 @@ import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.util.Log
+import android.view.View
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
@@ -45,6 +46,8 @@ class EditCraneInfoView : AppCompatActivity() {
         auth = FirebaseAuth.getInstance()
         db = FirebaseDatabase.getInstance()
         databaseReference = db.reference.child("Crane details").child(receivedValue)
+
+
 
         binding.uploadImg.setOnClickListener {
             // Open image picker
@@ -221,8 +224,11 @@ class EditCraneInfoView : AppCompatActivity() {
                         imageRef.downloadUrl.addOnSuccessListener { imageUrl ->
                             // Update the image URL in the database
                             val imageUrlString = imageUrl.toString()
-                            db.reference.child("Crane details").child(receivedValue).child("imageURL")
+                            db.reference.child("Crane details").child(receivedValue).child("image")
                                 .setValue(imageUrlString)
+                            db.reference.child("Model and Image").child(receivedValue).child("image")
+                                .setValue(imageUrlString)
+
                                 .addOnCompleteListener {
                                     // Delete the previous image from storage if it exists
                                     val previousImageRef = storageRef.child("crane_images/$receivedValue.jpg")
