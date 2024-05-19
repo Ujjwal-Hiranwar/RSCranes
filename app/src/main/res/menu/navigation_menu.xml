@@ -5,13 +5,16 @@
     tools:showIn="navigation_view">
     <group>
 
-        <item android:id="@+id/nav_home"
+        <item
+            android:id="@+id/nav_home"
             android:title="Home" />
 
-        <item android:id="@+id/nav_hire"
+        <item
+            android:id="@+id/nav_hire"
             android:title="Hire" />
 
-        <item android:id="@+id/nav_purchase"
+        <item
+            android:id="@+id/nav_purchase"
             android:title="Purchase" />
 
         <item
@@ -21,6 +24,10 @@
         <item
             android:id="@+id/sell_request"
             android:title="Sell Request" />
+
+        <item
+            android:id="@+id/change_password"
+            android:title="Change Password" />
 
         <item
             android:id="@+id/nav_logout"

@@ -24,7 +24,6 @@ import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
-import com.google.firebase.storage.FirebaseStorage
 import com.mypackage.rscranes.databinding.ActivityAdminHomeBinding
 
 class AdminHomeActivity : AppCompatActivity(), CraneAdapter.OnItemClickListener,
@@ -89,6 +88,11 @@ class AdminHomeActivity : AppCompatActivity(), CraneAdapter.OnItemClickListener,
 
             R.id.sell_request -> {
                 val intent = Intent(this, SellRequest::class.java)
+                startActivity(intent)
+            }
+
+            R.id.change_password -> {
+                val intent = Intent(this, ChangePassword::class.java)
                 startActivity(intent)
             }
             R.id.nav_home ->generalView()

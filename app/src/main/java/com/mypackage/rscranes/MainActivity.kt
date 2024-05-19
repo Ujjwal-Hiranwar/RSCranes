@@ -85,6 +85,11 @@ class MainActivity : AppCompatActivity(), CraneAdapter.OnItemClickListener,
                 finish()
             }
 
+            R.id.change_password -> {
+                val intent = Intent(this, ChangePassword::class.java)
+                startActivity(intent)
+            }
+
             R.id.nav_home -> generalView()
 
             R.id.nav_hire -> rentView()
