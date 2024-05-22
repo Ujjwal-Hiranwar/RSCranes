@@ -24,6 +24,7 @@ import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
+import com.mypackage.rscranes.SplashScreenActivity.adminUser.isAdmin
 import com.mypackage.rscranes.databinding.ActivityAdminHomeBinding
 
 class AdminHomeActivity : AppCompatActivity(), CraneAdapter.OnItemClickListener,
@@ -39,13 +40,14 @@ class AdminHomeActivity : AppCompatActivity(), CraneAdapter.OnItemClickListener,
     private var adapter2: RentAdapter? = null
     private var adapter3: PurchaseAdapter? = null
     private lateinit var drawerLayout: DrawerLayout
+    private val adminUidList = ArrayList<String>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_admin_home)
         auth = FirebaseAuth.getInstance()
         db = FirebaseDatabase.getInstance()
-        databaseReference = db.reference.child("Model and Image")
+        Toast.makeText(this, isAdmin.toString(), Toast.LENGTH_SHORT).show()
         drawerLayout = binding.drawerLayout
         val toolbar = binding.toolbar
         setSupportActionBar(toolbar)
@@ -69,6 +71,36 @@ class AdminHomeActivity : AppCompatActivity(), CraneAdapter.OnItemClickListener,
         binding.craneRecycleView.layoutManager = LinearLayoutManager(this)
         generalView()
 
+        databaseReference = db.reference.child("Admins")
+
+        databaseReference.addValueEventListener(object : ValueEventListener {
+            val currentUser = auth.currentUser?.uid
+
+            override fun onDataChange(snapshot: DataSnapshot) {
+                if (snapshot.exists()) {
+                    adminUidList.clear() // Clear the list before adding new data
+
+                    for (snapshot in snapshot.children) {
+                        val adminUid = snapshot.key // Get the UID of the admin
+                        adminUid?.let { adminUidList.add(it) } // Add only non-null UID
+                    }
+
+                    val isAdmin = adminUidList.contains(currentUser)
+                    SplashScreenActivity.adminUser.checkAdmin(isAdmin)
+                    Toast.makeText(this@AdminHomeActivity, "${SplashScreenActivity.adminUser.isAdmin}", Toast.LENGTH_SHORT).show()
+
+                }
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+                // Handle cancellation of the database operation
+                Toast.makeText(
+                    this@AdminHomeActivity,
+                    "Failed to read admin UIDs: ${error.message}",
+                    Toast.LENGTH_SHORT
+                ).show()
+            }
+        })
 
     }
 
@@ -104,6 +136,7 @@ class AdminHomeActivity : AppCompatActivity(), CraneAdapter.OnItemClickListener,
     }
 
     fun generalView() {
+        databaseReference = db.reference.child("Model and Image")
         databaseReference.addValueEventListener(object : ValueEventListener {
 
             override fun onDataChange(snapshot: DataSnapshot) {

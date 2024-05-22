@@ -8,7 +8,6 @@ import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.util.Log
-import android.view.View
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
@@ -85,6 +84,7 @@ class EditCraneInfoView : AppCompatActivity() {
                             4 -> {
                                 imagei = Uri.parse(crane.toString())
                                 Picasso.get().load(imagei).into(binding.uploadImg)
+                                Log.d("checking When" ,imagei.toString())
                                 i++
                             }
                             5 -> {
@@ -131,12 +131,6 @@ class EditCraneInfoView : AppCompatActivity() {
             uploadImageToFirebase(model,location,capacity,boomLength,flyjib,status,type,description)
 
             if (model.isNotEmpty() && location.isNotEmpty() && capacity.isNotEmpty() && boomLength.isNotEmpty() && flyjib.isNotEmpty() && status.isNotEmpty() && type.isNotEmpty()) {
-                Toast.makeText(
-                    this@EditCraneInfoView,
-                    SplashScreenActivity.adminUser.isAdmin.toString(),
-                    Toast.LENGTH_SHORT
-                ).show()
-
                 if (SplashScreenActivity.adminUser.isAdmin) {
                     startActivity(Intent(this@EditCraneInfoView, AdminHomeActivity::class.java))
                 } else {
@@ -163,49 +157,93 @@ class EditCraneInfoView : AppCompatActivity() {
         type: String,
         description: String
     ) {
-        val imageRef = storageRef.child("crane_images/$receivedValue.jpg")
+        // Check if user has selected a new image
+        val isNewImageSelected = imageUri != null
 
-        imageUri?.let { uri ->
-            imageRef.putFile(uri)
-                .addOnSuccessListener { taskSnapshot ->
-                    // Image upload successful
-                    imageRef.downloadUrl.addOnSuccessListener { imageUrl ->
-                        // Update the image URL in CraneDetails
-                        val imageUrlString = imageUrl.toString()
-                        val craneDetails = CraneDetails(
-                            model,
-                            location,
-                            capacity,
-                            boomLength,
-                            flyjib,
-                            imageUrlString, // Update image URL here
-                            status,
-                            type,
-                            description
-                        )
-                        db.reference.child("Crane details").child(receivedValue)
-                            .setValue(craneDetails)
-                            .addOnSuccessListener {
-                                // Update the image URL in dataModel
-                                val dataModel = dataModel(model, imageUrlString, description)
-                                db.reference.child("Model and Image").child(receivedValue)
-                                    .setValue(dataModel)
-                                    .addOnSuccessListener {
-                                        // Both CraneDetails and dataModel updated successfully
-                                        Toast.makeText(this, "Crane details and image URL updated", Toast.LENGTH_SHORT).show()
-                                    }
-                            }
+        if (isNewImageSelected) {
+            // User selected a new image
+            imageUri?.let { uri ->
+                val imageRef = storageRef.child("crane_images/$receivedValue.jpg")
+                imageRef.putFile(uri)
+                    .addOnSuccessListener { taskSnapshot ->
+                        // Image upload successful
+                        imageRef.downloadUrl.addOnSuccessListener { imageUrl ->
+                            // Update the image URL in the database
+                            val imageUrlString = imageUrl.toString()
+                            updateCraneDetailsWithImage(
+                                model,
+                                location,
+                                capacity,
+                                boomLength,
+                                flyjib,
+                                imageUrlString,
+                                status,
+                                type,
+                                description
+                            )
+                        }
                     }
-                }
-                .addOnFailureListener { exception ->
-                    // Image upload failed
-                    Toast.makeText(
-                        this,
-                        "Image upload failed: ${exception.message}",
-                        Toast.LENGTH_SHORT
-                    ).show()
-                }
+                    .addOnFailureListener { exception ->
+                        // Image upload failed
+                        Toast.makeText(
+                            this,
+                            "Image upload failed: ${exception.message}",
+                            Toast.LENGTH_SHORT
+                        ).show()
+                    }
+            }
+        } else {
+            // User didn't select a new image, update with previous image URL
+            val previousImageUrl = imagei?.toString() ?: ""
+            updateCraneDetailsWithImage(
+                model,
+                location,
+                capacity,
+                boomLength,
+                flyjib,
+                previousImageUrl,
+                status,
+                type,
+                description
+            )
         }
+    }
+
+    private fun updateCraneDetailsWithImage(
+        model: String,
+        location: String,
+        capacity: String,
+        boomLength: String,
+        flyjib: String,
+        imageUrl: String,
+        status: String,
+        type: String,
+        description: String
+    ) {
+        // Update CraneDetails with provided image URL
+        val craneDetails = CraneDetails(
+            model,
+            location,
+            capacity,
+            boomLength,
+            flyjib,
+            imageUrl,
+            status,
+            type,
+            description
+        )
+        db.reference.child("Crane details").child(receivedValue)
+            .setValue(craneDetails)
+            .addOnSuccessListener {
+                // Update the image URL in dataModel
+                val dataModel = dataModel(model, imageUrl, description)
+                db.reference.child("Model and Image").child(receivedValue)
+                    .setValue(dataModel)
+                    .addOnSuccessListener {
+                        // Both CraneDetails and dataModel updated successfully
+                        Toast.makeText(this, "Crane details updated", Toast.LENGTH_SHORT).show()
+                    }
+            }
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {

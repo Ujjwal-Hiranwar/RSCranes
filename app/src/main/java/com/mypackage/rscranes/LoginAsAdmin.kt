@@ -7,6 +7,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseAuthInvalidUserException
+import com.mypackage.rscranes.SplashScreenActivity.adminUser.isAdmin
 import com.mypackage.rscranes.databinding.ActivityLoginAsAdminBinding
 
 class LoginAsAdmin : AppCompatActivity() {
@@ -81,6 +82,7 @@ class LoginAsAdmin : AppCompatActivity() {
                                 }
                             }
                     } else {
+                        Toast.makeText(this, isAdmin.toString(), Toast.LENGTH_SHORT).show()
                         // User or admin is verified, open AdminHomeActivity
                         Toast.makeText(this, "Login Successful", Toast.LENGTH_SHORT).show()
                         val intent = Intent(this@LoginAsAdmin, AdminHomeActivity::class.java)

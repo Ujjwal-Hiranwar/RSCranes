@@ -6,7 +6,6 @@ import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.View
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import com.google.firebase.auth.FirebaseAuth
@@ -30,7 +29,6 @@ class CraneInfoView : AppCompatActivity() {
         binding = DataBindingUtil.setContentView(this, R.layout.activity_crane_info_view)
 
         val receivedValue = intent.getStringExtra("key")
-        Log.d("todo", receivedValue.toString())
         auth = FirebaseAuth.getInstance()
         db = FirebaseDatabase.getInstance()
         databaseReference = db.reference.child("Crane details").child(receivedValue.toString())
@@ -38,8 +36,8 @@ class CraneInfoView : AppCompatActivity() {
             binding.edit.visibility = View.VISIBLE
             binding.editImg.visibility = View.VISIBLE
         }else{
-
-        Toast.makeText(this, isAdmin.toString(), Toast.LENGTH_SHORT).show()
+            binding.edit.visibility = View.INVISIBLE
+            binding.editImg.visibility = View.INVISIBLE
         }
         binding.edit.setOnClickListener {
           val intent = Intent(this,EditCraneInfoView::class.java)

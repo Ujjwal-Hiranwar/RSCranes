@@ -8,7 +8,6 @@ import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.DatabaseReference
@@ -35,19 +34,20 @@ class SplashScreenActivity : AppCompatActivity() {
 
         Handler(Looper.getMainLooper()).postDelayed({
 
-            if(currentUser == null){
-                val intent =  Intent(this, LogInActivity::class.java)
+            if (currentUser == null) {
+                val intent = Intent(this, LogInActivity::class.java)
                 startActivity(intent)
             }
             if (currentUser != null) {
                 checkUser(currentUser.toString())
             }
             finish()
-        },4000)
+        }, 4000)
 
 
     }
-    private fun checkUser(currentUser:String){
+
+    private fun checkUser(currentUser: String) {
         databaseReference.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
                 if (snapshot.exists()) {
@@ -60,7 +60,7 @@ class SplashScreenActivity : AppCompatActivity() {
 
                     val isAdmin = adminUidList.contains(currentUser)
                     adminUser.checkAdmin(isAdmin)
-                    Toast.makeText(this@SplashScreenActivity, "${adminUser.isAdmin}", Toast.LENGTH_SHORT).show()
+//                    Toast.makeText(this@SplashScreenActivity, "${adminUser.isAdmin}", Toast.LENGTH_SHORT).show()
                     routeUserBasedOnRole(isAdmin)
 
 
@@ -77,6 +77,7 @@ class SplashScreenActivity : AppCompatActivity() {
             }
         })
     }
+
     private fun routeUserBasedOnRole(isAdmin: Boolean) {
 
         val intent = if (isAdmin) {
@@ -90,13 +91,13 @@ class SplashScreenActivity : AppCompatActivity() {
         finish() // Finish SplashScreenActivity after starting the next one
     }
 
-object adminUser {
-    var isAdmin : Boolean = false
-    fun checkAdmin(isAdmin: Boolean){
-        this.isAdmin = isAdmin
-        Log.d("user", this.isAdmin.toString())
-    }
+    object adminUser {
+        var isAdmin: Boolean = false
+        fun checkAdmin(isAdmin: Boolean) {
+            this.isAdmin = isAdmin
+            Log.d("user", this.isAdmin.toString())
+        }
 
-}
+    }
 
 }
