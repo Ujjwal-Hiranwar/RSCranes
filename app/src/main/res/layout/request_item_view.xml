@@ -10,7 +10,7 @@
         android:id="@+id/admin_request_cardView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="15dp"
+        android:layout_margin="14dp"
         android:background="@drawable/roundstyle"
         android:backgroundTint="#b3b5bd"
         android:elevation="15sp"
