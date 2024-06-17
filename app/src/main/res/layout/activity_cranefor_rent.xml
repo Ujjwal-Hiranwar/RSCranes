@@ -11,7 +11,7 @@
         android:id="@+id/main"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="#E6D7AA"
+        android:background="#f3f4f8"
         tools:context=".CraneforRent">
 
         <ScrollView
@@ -23,7 +23,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="#E6D7AA"
+                android:background="#f3f4f8"
                 android:orientation="vertical"
                 tools:layout_editor_absoluteX="16dp"
                 tools:layout_editor_absoluteY="205dp"
@@ -75,6 +75,7 @@
                         android:layout_width="310dp"
                         android:layout_height="wrap_content"
                         android:background="@drawable/roundstyle"
+                        android:backgroundTint="#b3b5bd"
                         android:orientation="vertical"
                         android:paddingHorizontal="15dp">
 
@@ -99,6 +100,7 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_gravity="bottom"
+                                android:textColorHint="@color/black"
                                 android:layout_marginStart="5dp"
                                 android:background="@drawable/roundstyle"
                                 android:backgroundTint="@color/white"
@@ -132,6 +134,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_gravity="bottom"
                                 android:layout_marginStart="5dp"
+                                android:textColorHint="@color/black"
                                 android:background="@drawable/roundstyle"
                                 android:backgroundTint="@color/white"
                                 android:gravity="center"
@@ -164,6 +167,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_marginStart="5dp"
                                 android:background="@drawable/roundstyle"
+                                android:textColorHint="@color/black"
                                 android:backgroundTint="@color/white"
                                 android:gravity="center"
                                 android:hint="Telephone number"
@@ -197,6 +201,7 @@
                                 android:layout_marginStart="5dp"
                                 android:background="@drawable/roundstyle"
                                 android:backgroundTint="@color/white"
+                                android:textColorHint="@color/black"
                                 android:gravity="center"
                                 android:hint="rental duration"
                                 android:padding="10dp"
@@ -230,6 +235,7 @@
                                 android:layout_marginStart="5dp"
                                 android:background="@drawable/roundstyle"
                                 android:backgroundTint="@color/white"
+                                android:textColorHint="@color/black"
                                 android:gravity="center"
                                 android:textColor="@color/black"
                                 android:hint="Other Details "
@@ -247,6 +253,7 @@
                             android:layout_margin="20dp"
                             android:background="@drawable/roundstyle"
                             android:text="Submit request"
+                            android:backgroundTint="#A4151515"
                             android:textSize="20dp" />
 
 

@@ -10,7 +10,7 @@
         android:id="@+id/main"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="#E6D7AA"
+        android:background="#f3f4f8"
         android:orientation="vertical"
         tools:context=".LoginAsAdmin">
 
@@ -36,6 +36,8 @@
                 android:layout_height="match_parent"
                 android:layout_gravity="center"
                 android:paddingVertical="35dp"
+
+
                 android:orientation="vertical"
                 >
 
@@ -55,6 +57,7 @@
                         android:background="@drawable/roundstyle"
                         android:backgroundTint="@color/white"
                         android:hint="Email"
+                        android:textColorHint="@color/black"
                         android:inputType="text"
                         android:textSize="15dp"
                         android:textColor="@color/black"
@@ -75,6 +78,7 @@
                         android:id="@+id/adminpassword"
                         android:layout_width="match_parent"
                         android:layout_height="45dp"
+                        android:textColorHint="@color/black"
                         android:background="@drawable/roundstyle"
                         android:backgroundTint="@color/white"
                         android:hint="Password"
@@ -98,6 +102,7 @@
                         android:id="@+id/adminuniqeid"
                         android:layout_width="match_parent"
                         android:layout_height="45dp"
+                        android:textColorHint="@color/black"
                         android:background="@drawable/roundstyle"
                         android:backgroundTint="@color/white"
                         android:hint="Uniqe ID"
@@ -127,6 +132,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:layout_marginTop="20dp"
+
                     android:background="@drawable/roundstyle"
                     android:text="Log In"
                     android:textSize="20sp" />

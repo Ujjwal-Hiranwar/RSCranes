@@ -10,7 +10,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="#E6D7AA"
+        android:background="#f3f4f8"
         android:orientation="vertical">
 
         <LinearLayout
@@ -45,8 +45,8 @@
             android:layout_height="wrap_content"
             android:layout_margin="15dp"
             android:background="@drawable/roundstyle"
-            android:backgroundTint="#E3E0C9"
-            android:textColor="@color/black"
+            android:backgroundTint="#5b5d6b"
+            android:textColor="@color/white"
             android:orientation="vertical"
             android:padding="20dp">
 
@@ -61,7 +61,7 @@
                     android:layout_height="wrap_content"
                     android:text="Crane Name:"
                     android:textSize="18sp"
-                    android:textColor="@color/black"
+                    android:textColor="@color/white"
                     android:textStyle="bold"
                     tools:ignore="HardcodedText" />
 
@@ -71,7 +71,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="30dp"
                     android:text="Crane Name"
-                    android:textColor="@color/black"
+                    android:textColor="@color/white"
                     android:textSize="16sp"
                     tools:ignore="HardcodedText" />
             </LinearLayout>
@@ -87,7 +87,7 @@
                     android:layout_height="wrap_content"
                     android:text="Capacity:"
                     android:textSize="18sp"
-                    android:textColor="@color/black"
+                    android:textColor="@color/white"
                     android:textStyle="bold"
                     tools:ignore="HardcodedText" />
 
@@ -97,7 +97,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="30dp"
                     android:text="Capacity"
-                    android:textColor="@color/black"
+                    android:textColor="@color/white"
                     android:textSize="16sp"
                     tools:ignore="HardcodedText" />
             </LinearLayout>
@@ -114,7 +114,7 @@
                     android:text="Phone no:"
                     android:textSize="18sp"
                     android:textStyle="bold"
-                    android:textColor="@color/black"
+                    android:textColor="@color/white"
                     tools:ignore="HardcodedText" />
 
                 <TextView
@@ -123,7 +123,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="30dp"
                     android:text="Phone Number"
-                    android:textColor="@color/black"
+                    android:textColor="@color/white"
                     android:textSize="16sp"
                     tools:ignore="HardcodedText" />
             </LinearLayout>
@@ -141,7 +141,7 @@
                     android:text="Duration:"
                     android:textSize="18sp"
                     android:textStyle="bold"
-                    android:textColor="@color/black"
+                    android:textColor="@color/white"
                     tools:ignore="HardcodedText" />
 
                 <TextView
@@ -150,7 +150,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="30dp"
                     android:text="Duration"
-                    android:textColor="@color/black"
+                    android:textColor="@color/white"
                     android:textSize="16sp"
                     tools:ignore="HardcodedText" />
             </LinearLayout>
@@ -167,7 +167,7 @@
                     android:text="Details:"
                     android:textSize="18sp"
                     android:textStyle="bold"
-                    android:textColor="@color/black"
+                    android:textColor="@color/white"
                     tools:ignore="HardcodedText" />
 
                 <TextView
@@ -177,6 +177,7 @@
                     android:layout_marginStart="30dp"
                     android:text="Details"
                     android:textSize="16sp"
+                    android:textColor="@color/white"
                     tools:ignore="HardcodedText" />
             </LinearLayout>
         </LinearLayout>

@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="#E6D7AA">
+    android:background="#fff">
 
     <androidx.cardview.widget.CardView
         android:id="@+id/admin_request_cardView"
@@ -23,6 +23,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
+            android:background="#b3b5bd"
             android:padding="25sp">
 
             <TextView
@@ -30,6 +31,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="5sp"
+                android:textColor="@color/black"
                 android:text="User name"
                 android:textSize="20sp"
                 android:textStyle="bold" />
@@ -39,6 +41,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="5dp"
+                android:textColor="@color/black"
                 android:text="Model Status"
                 android:textSize="20sp"
                 android:textStyle="bold" />

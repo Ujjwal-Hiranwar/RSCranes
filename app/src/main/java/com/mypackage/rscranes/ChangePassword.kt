@@ -18,7 +18,9 @@ class ChangePassword : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_change_password)
-
+        binding.back.setOnClickListener {
+            finish()
+        }
         db = FirebaseDatabase.getInstance()
         auth = FirebaseAuth.getInstance()
         val user = auth.currentUser!!.uid

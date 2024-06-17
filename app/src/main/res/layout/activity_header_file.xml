@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="#E6D7AA"
+    android:background="#f3f4f8"
     tools:context=".headerFile">
 
     <TextView
@@ -19,23 +19,23 @@
         android:textColor="@color/black"
         android:textStyle="bold" />
 
-<!--    <TextView-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:textSize="22dp"-->
-<!--        android:textStyle="bold"-->
-<!--        android:text="Requests"-->
-<!--        android:layout_marginStart="12dp"-->
+    <!--    <TextView-->
+    <!--        android:layout_width="match_parent"-->
+    <!--        android:layout_height="wrap_content"-->
+    <!--        android:textSize="22dp"-->
+    <!--        android:textStyle="bold"-->
+    <!--        android:text="Requests"-->
+    <!--        android:layout_marginStart="12dp"-->
 
-<!--        />-->
-<!--    <TextView-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:textSize="22dp"-->
-<!--        android:layout_marginTop="10dp"-->
-<!--        android:textStyle="bold"-->
-<!--        android:text="Log Out"-->
-<!--        android:layout_marginStart="12dp"-->
+    <!--        />-->
+    <!--    <TextView-->
+    <!--        android:layout_width="match_parent"-->
+    <!--        android:layout_height="wrap_content"-->
+    <!--        android:textSize="22dp"-->
+    <!--        android:layout_marginTop="10dp"-->
+    <!--        android:textStyle="bold"-->
+    <!--        android:text="Log Out"-->
+    <!--        android:layout_marginStart="12dp"-->
 
-<!--        />-->
+    <!--        />-->
 </LinearLayout>

@@ -10,7 +10,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="#E6D7AA"
+        android:background="#f3f4f8"
         android:orientation="vertical"
         tools:context=".AdminHomeActivity">
 
@@ -61,20 +61,20 @@
 
 
 
-                <com.google.android.material.navigation.NavigationView
-                    android:id="@+id/nav_view"
-                    android:layout_width="300dp"
-                    android:layout_height="match_parent"
-                    android:layout_gravity="start"
-                    app:headerLayout="@layout/activity_header_file"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:menu="@menu/navigation_menu">
+            <com.google.android.material.navigation.NavigationView
+                android:id="@+id/nav_view"
+                android:layout_width="300dp"
+                android:layout_height="match_parent"
+                android:layout_gravity="start"
+                app:headerLayout="@layout/activity_header_file"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:menu="@menu/navigation_menu">
 
-                </com.google.android.material.navigation.NavigationView>
+            </com.google.android.material.navigation.NavigationView>
 
 
-            </androidx.drawerlayout.widget.DrawerLayout>
+        </androidx.drawerlayout.widget.DrawerLayout>
 
 
     </LinearLayout>
